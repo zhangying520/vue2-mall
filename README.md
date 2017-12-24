@@ -1,6 +1,10 @@
-# my-project
+# Vue-Vuex-Mall
 
-> A Vue.js project
+- 状态管理 Vuex
+- Css预处理器 Sass
+- 组件库 Element Vue
+
+> this is a Vue.js project
 
 ## Build Setup
 
