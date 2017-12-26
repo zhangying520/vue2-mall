@@ -2,7 +2,9 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <h2>Essential Links</h2>
-    <el-button type="primary">主要按钮</el-button>
+    <router-link to="goods">
+      <el-button type="primary">商品列表</el-button>
+    </router-link>
   </div>
 </template>
 

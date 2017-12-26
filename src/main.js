@@ -10,7 +10,7 @@ Vue.config.productionTip = false
 
 import {
   Button, Select, Container, Header, Main, Footer, Row,
-  Col, Card, Breadcrumb, BreadcrumbItem, Carousel, CarouselItem,
+  Col, Card, Breadcrumb, BreadcrumbItem, Carousel, CarouselItem, Loading,
 } from 'element-ui'
 Vue.prototype.$ELEMENT = { size: 'small' } // 用于改变组件的默认尺寸，默认small
 Vue.component(Button.name, Button)
@@ -25,6 +25,8 @@ Vue.use(CarouselItem)
 Vue.use(Row)
 Vue.use(Col)
 Vue.use(Card)
+Vue.use(Loading.directive)
+Vue.prototype.$loading = Loading.service
 
 /* eslint-disable no-new */
 new Vue({

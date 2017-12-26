@@ -91,7 +91,7 @@
 
 }
 
-//判断是否为数字;
+// 判断是否为数字;
 @function TestNum( $num1,$num2 ){
 
     @if ( not unitless($num1) or not unitless($num2) ){
@@ -106,7 +106,7 @@
     }
 }
 
-//一行显示。。。。;
+// 一行显示。。。。;
 @mixin ellipsis{
     white-space:nowrap;
     text-overflow:ellipsis;
@@ -166,7 +166,7 @@
           border-radius : $radius;
 }
 
-//改变默认选中颜色
+// 改变默认选中颜色
 @mixin selection( $bg:#00F,$color:#fff,$obj:0 ){
 
     @if( type-of($obj) == number ){

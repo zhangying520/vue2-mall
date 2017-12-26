@@ -35,13 +35,13 @@
       
       <div class="goods-list">
         <el-row>
-          <el-col :span="6" v-for="(o, index) in 10" :key="o">
+          <el-col :span="6" v-for="(o, index) in goodsList" :key="index">
             <el-card :body-style="{ padding: '0px' }">
-              <img :src="'../../static/'+(index+1)+'.jpg'" class="goods-list-image">
+              <img :src="iconHost + o.productImage" class="goods-list-image">
               <div style="padding: 14px;">
-                <span>美图M8定制版手机壳</span>
+                <span class="product-name">{{ o.productName }}</span>
                 <div class="bottom clearfix">
-                  <p class="goods-price">{{ currentDate }}</p>
+                  <p class="goods-price">RMB {{ o.salePrice }}</p>
                 </div>
               </div>
             </el-card>
@@ -50,7 +50,7 @@
       </div>
     </el-main>
 
-    <el-footer>
+    <el-footer style="text-align: center;font-size: 12px;">
       Copyright © 2017 Denton Inc. DDD 保留所有权利
     </el-footer>
     
@@ -58,17 +58,48 @@
 </template>
 
 <script>
+import { getGoods } from "../api/goods";
 export default {
   data() {
     return {
-      currentDate: new Date().toLocaleString()
+      currentDate: new Date().toLocaleString(),
+      goodsList: [],
+      iconHost: "",
+      sortFlag: true,
+      page: 1,
+      pageSize: "",
+      loading: ""
+    };
+  },
+  mounted() {
+    this.iconHost = process.env.ICON_API;
+    this.loading = this.$loading({
+      lock: true,
+      text: "Loading",
+      // spinner: "el-icon-loading",
+      background: "rgba(0, 0, 0, 0.7)"
+    });
+    this.getGoodsList();
+  },
+  methods: {
+    getGoodsList() {
+      var params = {
+        page: this.page,
+        pageSize: this.pageSize,
+        sort: this.sortFlag ? 1 : -1
+      };
+      getGoods(params).then(response => {
+        this.goodsList = response.result.list;
+        this.loading.close();
+        console.log(response);
+      });
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
-@import '../styles/base.scss';
-@import '../styles/GoodsList.scss';
+@import "../styles/base.scss";
+@import "../styles/GoodsList.scss";
 </style>
 
