@@ -1,19 +1,7 @@
 <template>
   <el-container>
-    <el-header>
-      <div class="colr-red navbar">
-        <div class="navbar-left-container">
-          Logo
-        </div>
-        <div class="navbar-right-container">
-          <a href="javascipt:;" class="navbar-link">Login</a>
-          <a href="javascipt:;" class="navbar-link">Logout</a>
-          <div class="navbar-cart-container">
-            <svg-icon icon-class="cart" class="cart"></svg-icon>
-          </div>
-        </div>
-      </div>
-    </el-header>
+
+    <nav-header></nav-header>
 
     <div class="nav-breadcrumb-wrap">
       <div class="container">
@@ -25,31 +13,34 @@
     </div>
 
     <el-main>
-      <div>
-        <!-- <el-carousel trigger="click">
+      <!-- <div>
+        <el-carousel trigger="click">
           <el-carousel-item v-for="item in 1" :key="item">
-            <img src="../../static/mt.png" alt="">
+            <img src="../../static/banner.png" alt="">
           </el-carousel-item>
-        </el-carousel> -->
-      </div>
+        </el-carousel>
+      </div> -->
       
       <div class="goods-list">
         <el-row>
           <el-col :span="6" v-for="(o, index) in goodsList" :key="index">
-            <el-card :body-style="{ padding: '0px' }">
-              <img :src="iconHost + o.productImage" class="goods-list-image">
-              <div style="padding: 14px;">
-                <span class="product-name">{{ o.productName }}</span>
-                <div class="bottom clearfix">
-                  <p class="goods-price">RMB {{ o.salePrice }}</p>
+            <router-link :to="{path: 'goods/detail/' + o.productId}">
+              <el-card :body-style="{ padding: '0px' }">
+                <img :src="iconHost + o.productImage" class="goods-list-image">
+                <div style="padding: 14px;">
+                  <span class="product-name">{{ o.productName }}</span>
+                  <div class="bottom clearfix">
+                    <p class="goods-price">RMB {{ o.salePrice }}</p>
+                  </div>
                 </div>
-              </div>
-            </el-card>
+              </el-card>
+            </router-link>
           </el-col>
       </el-row>
       </div>
     </el-main>
 
+    <!-- <nav-footer></nav-footer> -->
     <el-footer style="text-align: center;font-size: 12px;">
       Copyright © 2017 Denton Inc. DDD 保留所有权利
     </el-footer>
@@ -58,6 +49,8 @@
 </template>
 
 <script>
+import NavHeader from '../components/NavHeader'
+import NavFooter from '../components/NavFooter'
 import { getGoods } from "../api/goods";
 export default {
   data() {
@@ -73,16 +66,17 @@ export default {
   },
   mounted() {
     this.iconHost = process.env.ICON_API;
-    this.loading = this.$loading({
-      lock: true,
-      text: "Loading",
-      // spinner: "el-icon-loading",
-      background: "rgba(0, 0, 0, 0.7)"
-    });
     this.getGoodsList();
+    // console.log(this.$loading());
   },
   methods: {
     getGoodsList() {
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        // spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       var params = {
         page: this.page,
         pageSize: this.pageSize,
@@ -94,6 +88,10 @@ export default {
         console.log(response);
       });
     }
+  },
+  components: {
+    NavHeader,
+    NavFooter
   }
 };
 </script>

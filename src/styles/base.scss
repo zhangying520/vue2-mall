@@ -12,8 +12,8 @@
   table, th, td, select, img, input,object{ vertical-align: middle;}
   :focus { outline: 0;}
   input,select{margin:0;}
-  a { color: #005EA7; text-decoration: none; }
-  a:hover { text-decoration:underline; }
+  a { color: #333; text-decoration: none; }
+  a:hover { text-decoration:none; }
   p,a,td{word-wrap:break-word;word-break:break-all;}
   img { border: none;vertical-align:top; }
   textarea{ resize:none;border:1px solid #ccc;}
@@ -23,7 +23,7 @@
   dfn {font-style: normal;font-family: Arial;}
 }
 
-//浮动;
+// 浮动;
 @mixin fl{
     float:left;
 }
@@ -33,7 +33,7 @@
 @mixin float($dir:left){
     float:$dir;
 }
-//清除浮动;
+// 清除浮动;
 @mixin clear(){
     *zoom:1;
     &:after{
@@ -134,7 +134,7 @@
 @mixin cur{ cursor: pointer; }
 @mixin def{ cursor:default;}
 
-//css3过渡;
+// css3过渡;
 @mixin tran($name:all,$time:2s){
     -webkit-transition : $name $time;  /* Safari 和 Chrome */
        -moz-transition : $name $time;  /* Firefox 4 */
@@ -143,7 +143,7 @@
             transition : $name $time;
 }
 
-//css3;
+// css3;
 @mixin css3( $style,$frames ){
     -webkit-#{$style} : $frames;  /* Safari 和 Chrome */
        -moz-#{$style} : $frames;  /* Firefox 4 */
@@ -151,13 +151,13 @@
             #{$style} : $frames;
 }
 
-//透明;
+// 透明;
 @mixin opa($num:0.8){
     opacity : $num;
     filter  : alpha(opacity=$num*100);
 }
 
-//css3圆角;
+// css3圆角;
 @mixin border-radius($radius: 5px) {
   -webkit-border-radius : $radius;  /* Safari 和 Chrome */
      -moz-border-radius : $radius;  /* Firefox 4 */
