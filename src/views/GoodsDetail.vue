@@ -2,6 +2,12 @@
   <div>
     <nav-header></nav-header>
 
+    <nav class="global-sub-nav-line">
+      <div :span="24" class="global-sub-nav-inner">
+        <h5 class="global-sub-nav-title">M8定制版手机壳</h5>
+      </div>
+    </nav>
+
     <div class="goods-detail">
       <el-row :gutter="60">
         <el-col :span="12">
@@ -12,19 +18,19 @@
           </el-carousel>
         </el-col>
         <el-col :span="12">
-          <div class="property-option">
+          <div class="property-option" :class="showOption ? 'property-option-show' : ''">
             <div class="property-option-title">
               颜色
-              <div class="property-option-value">环游世界</div>
-              <a href="javascript:;" class="property-option-change">修改</a>
+              <div class="property-option-value">{{ optionValue }}</div>
+              <a href="javascript:;" class="property-option-change" @click="showOption = !showOption">修改</a>
             </div>
-            <div class="property-option-list">
+            <div class="property-option-list" >
               <el-row :gutter="20">
-                <el-col :span="12">
-                  <el-button class="property-option-btn">朴素按钮</el-button>
+                <el-col :span="12" >
+                  <el-button class="property-option-btn" @click="show($event)">哈哈哈哈</el-button>
                 </el-col>
                 <el-col :span="12">
-                  <el-button class="property-option-btn">朴素按钮</el-button>
+                  <el-button class="property-option-btn" @click="show($event)">朴素按钮</el-button>
                 </el-col>
               </el-row>
               <el-row :gutter="20">
@@ -48,7 +54,7 @@
             <div class="product-number">
               <div class="product-number-label">购买数量</div>
               <div class="product-number-value">
-                <el-input-number size="small" :min="1" v-model="purQuantity"></el-input-number>
+                <el-input-number size="small" :min="1" v-model="purQuantity" @change="handleChange"></el-input-number>
               </div>
             </div>
 
@@ -56,17 +62,16 @@
               <div class="product-price">
                 <div class="product-price-value">
                   RMB　
-                  <span>80</span>
+                  <span>{{ totalPrice }}</span>
                 </div>
                 <div class="product-price-time"></div>
               </div>
 
               <div class="product-buttons">
                 <div class="product-button-line">
-                  <el-button plain disabled class="buy-now">立即购买</el-button>
+                  <el-button plain :disabled="optionValue == ''" :class="optionValue == '' ? '' : 'mt-button--primary'" class="buy-now">立即购买</el-button>
                 </div>
                 <div class="product-button-line">
-                  <!-- <el-button type="text"></el-button> -->
                   <a href="javascript:;" class="btn-addcart">添加到购物袋</a>
                 </div>
               </div>
@@ -89,20 +94,56 @@
 </template>
 
 <script>
-import NavHeader from "../components/NavHeader";
-import NavFooter from "../components/NavFooter";
+import NavHeader from '../components/NavHeader'
+import NavFooter from '../components/NavFooter'
+import { getDetail } from '@/api/goods.js'
 export default {
   data() {
     return {
-      msg: "这是里商品详情页",
-      purQuantity: 0
-    };
+      msg: '这是里商品详情页',
+      purQuantity: 0,
+      showOption: false,
+      optionValue: '',
+      price: 80, // 单价
+      totalPrice: 80, // 总价
+    }
   },
   mounted() {
-    console.log(this.$route.params);
+    console.log(this.$route.params)
+    // this.getGoodsDetail()
+  },
+  updated() {
+    // console.log(this.showOption)
+  },
+  methods: {
+    show(e) {
+      this.showOption = !this.showOption
+      this.optionValue = e.target.innerText
+    },
+    handleChange(value) {
+      this.totalPrice = this.price * value
+    },
+    getGoodsDetail() {
+      this.loading = this.$loading({
+        lock: true,
+        text: 'Loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      })
+      var param = { id: this.$route.params.goodsId }
+      getDetail(param).then(
+        response => {
+          this.loading.close()
+          console.log(response)
+        },
+        error => {
+          this.loading.close()
+          console.log(error)
+        }
+      )
+    }
   },
   components: { NavHeader, NavFooter }
-};
+}
 </script>
 
 <style lang="scss" scoped>

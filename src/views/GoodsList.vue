@@ -20,7 +20,7 @@
           </el-carousel-item>
         </el-carousel>
       </div> -->
-      
+
       <div class="goods-list">
         <el-row>
           <el-col :span="6" v-for="(o, index) in goodsList" :key="index">
@@ -44,7 +44,7 @@
     <el-footer style="text-align: center;font-size: 12px;">
       Copyright © 2017 Denton Inc. DDD 保留所有权利
     </el-footer>
-    
+
   </el-container>
 </template>
 
@@ -83,9 +83,12 @@ export default {
         sort: this.sortFlag ? 1 : -1
       };
       getGoods(params).then(response => {
-        this.goodsList = response.result.list;
         this.loading.close();
+        this.goodsList = response.result.list;
         console.log(response);
+      }, error => {
+        console.error(error);
+        this.loading.close();
       });
     }
   },
