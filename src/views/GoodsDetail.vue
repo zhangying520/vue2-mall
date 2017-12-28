@@ -72,7 +72,7 @@
                   <el-button plain :disabled="optionValue == ''" :class="optionValue == '' ? '' : 'mt-button--primary'" class="buy-now">立即购买</el-button>
                 </div>
                 <div class="product-button-line">
-                  <a href="javascript:;" class="btn-addcart">添加到购物袋</a>
+                  <a href="javascript:;" class="btn-addcart" @click="addCart">添加到购物袋</a>
                 </div>
               </div>
             </div>
@@ -96,7 +96,7 @@
 <script>
 import NavHeader from '../components/NavHeader'
 import NavFooter from '../components/NavFooter'
-import { getDetail } from '@/api/goods.js'
+import { getDetail, addCart } from '@/api/goods.js'
 export default {
   data() {
     return {
@@ -120,8 +120,31 @@ export default {
       this.showOption = !this.showOption
       this.optionValue = e.target.innerText
     },
-    handleChange(value) {
+    handleChange(value) { // 计算总价
       this.totalPrice = this.price * value
+    },
+    addCart() {
+      this.loading = this.$loading({
+        lock: true,
+        text: 'Loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      })
+      let params = { id: 1 }
+      addCart(params).then(
+        response => {
+          console.log(response);
+          this.loading.close()
+          this.$message({
+            showClose: true,
+            message: response.msg,
+            type: 'success'
+          })
+        },
+        error => {
+          console.log(error);
+          this.loading.close()
+        }
+      )
     },
     getGoodsDetail() {
       this.loading = this.$loading({

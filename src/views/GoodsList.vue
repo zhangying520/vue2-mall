@@ -5,10 +5,20 @@
 
     <div class="nav-breadcrumb-wrap">
       <div class="container">
-        <el-breadcrumb separator="/" class="nav-breadcrumb">
-          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item>Goods</el-breadcrumb-item>
-        </el-breadcrumb>
+        <el-row>
+          <el-col :span="20">
+            <el-breadcrumb separator="/" class="nav-breadcrumb">
+              <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+              <el-breadcrumb-item>Goods</el-breadcrumb-item>
+            </el-breadcrumb>
+          </el-col>
+          <el-col :span="4">
+            <div class="nav-breadcrumb">
+              <span @click="sortFlag = true">升序</span>
+              <span @click="sortFlag = false">降序</span>
+            </div>
+          </el-col>
+        </el-row>
       </div>
     </div>
 
@@ -49,8 +59,8 @@
 </template>
 
 <script>
-import NavHeader from '../components/NavHeader'
-import NavFooter from '../components/NavFooter'
+import NavHeader from "../components/NavHeader";
+import NavFooter from "../components/NavFooter";
 import { getGoods } from "../api/goods";
 export default {
   data() {
@@ -58,7 +68,7 @@ export default {
       currentDate: new Date().toLocaleString(),
       goodsList: [],
       iconHost: "",
-      sortFlag: true,
+      sortFlag: true, // 升序还是降序
       page: 1,
       pageSize: "",
       loading: ""
@@ -82,19 +92,29 @@ export default {
         pageSize: this.pageSize,
         sort: this.sortFlag ? 1 : -1
       };
-      getGoods(params).then(response => {
-        this.loading.close();
-        this.goodsList = response.result.list;
-        console.log(response);
-      }, error => {
-        console.error(error);
-        this.loading.close();
-      });
+      getGoods(params).then(
+        response => {
+          this.loading.close();
+          this.goodsList = response.result.list;
+          console.log(response);
+        },
+        error => {
+          console.error(error);
+          this.loading.close();
+        }
+      );
     }
   },
   components: {
     NavHeader,
     NavFooter
+  },
+  watch: {
+    sortFlag: function (val) {
+      this.getGoodsList();
+      console.log(val);
+    },
+    // deep: true
   }
 };
 </script>

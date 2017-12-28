@@ -17,3 +17,11 @@ export function getDetail(params) {
     params
   })
 }
+
+export function addCart(params) {
+  return requect({
+    url: '/goods/addCart',
+    method: 'post',
+    data: params
+  })
+}
