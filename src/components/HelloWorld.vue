@@ -9,19 +9,27 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'HelloWorld',
-  data () {
+  data() {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  computed: {
+    ...mapGetters(['token'])
+  },
+  mounted() {
+    console.log(this.token)
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
+h1,
+h2 {
   font-weight: normal;
 }
 ul {

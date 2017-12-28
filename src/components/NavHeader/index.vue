@@ -5,7 +5,7 @@
         <div id="navbar-logo"></div>
       </div>
       <div class="navbar-right-container">
-        <a href="javascipt:;" class="navbar-link">Login</a>
+        <router-link to="/login" class="navbar-link">Login</router-link>
         <a href="javascipt:;" class="navbar-link">Logout</a>
         <div class="navbar-cart-container">
           <svg-icon icon-class="cart" class="cart"></svg-icon>

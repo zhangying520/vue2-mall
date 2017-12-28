@@ -129,7 +129,7 @@ export default {
         text: 'Loading',
         background: 'rgba(0, 0, 0, 0.7)'
       })
-      let params = { id: 1 }
+      let params = { product_id: this.$route.params.goodsId }
       addCart(params).then(
         response => {
           console.log(response);

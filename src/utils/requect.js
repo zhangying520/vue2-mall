@@ -31,7 +31,7 @@ service.interceptors.response.use(
     // console.log(res);
     if (res.code !== 200) {
       Message({
-        message: res.data,
+        message: res.msg,
         type: 'error',
         duration: 5 * 1000
       })

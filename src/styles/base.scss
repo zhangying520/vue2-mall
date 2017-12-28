@@ -21,6 +21,7 @@
   input[type="text"],input[type="button"]{-webkit-appearance: none;border-radius: 0;font-family:'Microsoft Yahei','黑体', Arial, Helvetica, sans-serif;}
   input[type="text"]{border:solid 1px #ccc; border-radius:0;}
   dfn {font-style: normal;font-family: Arial;}
+  html { overflow-y: scroll; /*padding-left: calc(100vw - 100%);*/ }
 }
 
 // 浮动;
