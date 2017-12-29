@@ -18,6 +18,7 @@ export function getDetail(params) {
   })
 }
 
+// 加入购物车
 export function addCart(params) {
   return requect({
     url: '/goods/addCart',

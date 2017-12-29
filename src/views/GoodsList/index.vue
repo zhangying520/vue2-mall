@@ -50,6 +50,7 @@
       </div>
     </el-main>
 
+
     <!-- <nav-footer></nav-footer> -->
     <el-footer style="text-align: center;font-size: 12px;">
       Copyright © 2017 Denton Inc. DDD 保留所有权利
@@ -59,9 +60,9 @@
 </template>
 
 <script>
-import NavHeader from "../components/NavHeader";
-import NavFooter from "../components/NavFooter";
-import { getGoods } from "../api/goods";
+import NavHeader from "@/components/NavHeader";
+import NavFooter from "@/components/NavFooter";
+import { getGoods } from "@/api/goods";
 export default {
   data() {
     return {
@@ -120,7 +121,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../styles/base.scss";
-@import "../styles/GoodsList.scss";
+@import "../../styles/base.scss";
+@import "../../styles/GoodsList.scss";
 </style>
 

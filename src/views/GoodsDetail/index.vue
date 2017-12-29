@@ -4,7 +4,7 @@
 
     <nav class="global-sub-nav-line">
       <div :span="24" class="global-sub-nav-inner">
-        <h5 class="global-sub-nav-title">M8定制版手机壳</h5>
+        <h5 class="global-sub-nav-title">{{detailData.title}}</h5>
       </div>
     </nav>
 
@@ -12,41 +12,22 @@
       <el-row :gutter="60">
         <el-col :span="12">
           <el-carousel trigger="click" height="550px" :autoplay="false" indicator-position="outside">
-            <el-carousel-item v-for="item in 3" :key="item">
-              <img src="../../static/1.jpg" alt="" class="detail-image">
+            <el-carousel-item v-for="(current, o) in detailData.preview_images" :key="o">
+              <img :src="current" alt="" class="detail-image">
             </el-carousel-item>
           </el-carousel>
         </el-col>
         <el-col :span="12">
-          <div class="property-option" :class="showOption ? 'property-option-show' : ''">
-            <div class="property-option-title">
-              颜色
+          <div class="property-option" :class="showOption ? 'property-option-show' : ''" >
+            <div class="property-option-title" v-for="(item, index) in detailData.sale_attr">
+              {{item.name}}
               <div class="property-option-value">{{ optionValue }}</div>
-              <a href="javascript:;" class="property-option-change" @click="showOption = !showOption">修改</a>
+              <a href="javascript:;" v-if="detailData.specification.length != 1" class="property-option-change" @click="showOption = !showOption">修改</a>
             </div>
             <div class="property-option-list" >
               <el-row :gutter="20">
-                <el-col :span="12" >
-                  <el-button class="property-option-btn" @click="show($event)">哈哈哈哈</el-button>
-                </el-col>
-                <el-col :span="12">
-                  <el-button class="property-option-btn" @click="show($event)">朴素按钮</el-button>
-                </el-col>
-              </el-row>
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <el-button class="property-option-btn">朴素按钮</el-button>
-                </el-col>
-                <el-col :span="12">
-                  <el-button class="property-option-btn">朴素按钮</el-button>
-                </el-col>
-              </el-row>
-              <el-row :gutter="20">
-                <el-col :span="12">
-                  <el-button class="property-option-btn">朴素按钮</el-button>
-                </el-col>
-                <el-col :span="12">
-                  <el-button class="property-option-btn">朴素按钮</el-button>
+                <el-col :span="12" v-for="(item, index) in detailData.specification" :key="index" v-if="index != 0">
+                  <el-button class="property-option-btn" :class="{active:active==index}" @click="show($event, item, index)">{{item.name}}</el-button>
                 </el-col>
               </el-row>
             </div>
@@ -64,7 +45,7 @@
                   RMB　
                   <span>{{ totalPrice }}</span>
                 </div>
-                <div class="product-price-time"></div>
+                <div class="product-price-time">{{ deliveryTime }}</div>
               </div>
 
               <div class="product-buttons">
@@ -82,10 +63,9 @@
 
       <div class="product-detail">
         <h2 class="product-detail-title">商品详情</h2>
-        <div class="product-detail-image-box"><img src="../../static/59795.jpg" alt=""></div>
-        <div class="product-detail-image-box"><img src="../../static/59795.jpg" alt=""></div>
-        <div class="product-detail-image-box"><img src="../../static/59795.jpg" alt=""></div>
-        <div class="product-detail-image-box"><img src="../../static/59795.jpg" alt=""></div>
+        <div class="product-detail-image-box" v-for="(item, index) in detailData.images" :key="index">
+          <img :src="item" alt="">
+        </div>
       </div>
     </div>
 
@@ -94,34 +74,40 @@
 </template>
 
 <script>
-import NavHeader from '../components/NavHeader'
-import NavFooter from '../components/NavFooter'
+import NavHeader from '@/components/NavHeader'
+import NavFooter from '@/components/NavFooter'
 import { getDetail, addCart } from '@/api/goods.js'
 export default {
   data() {
     return {
-      msg: '这是里商品详情页',
+      detailData: '',
       purQuantity: 0,
       showOption: false,
       optionValue: '',
-      price: 80, // 单价
-      totalPrice: 80, // 总价
+      unitPrice: '无', // 单价
+      totalPrice: null, // 总价
+      deliveryTime: '', // 发货时间
+      active: 0
     }
   },
   mounted() {
     console.log(this.$route.params)
-    // this.getGoodsDetail()
+    this.getGoodsDetail()
   },
   updated() {
     // console.log(this.showOption)
   },
   methods: {
-    show(e) {
+    show(e, data, index) {
       this.showOption = !this.showOption
       this.optionValue = e.target.innerText
+      this.unitPrice = data.price
+      this.deliveryTime = data.delivery_tip
+      this.active = index
     },
     handleChange(value) { // 计算总价
-      this.totalPrice = this.price * value
+    // console.log(value);
+      this.totalPrice = this.unitPrice * value
     },
     addCart() {
       this.loading = this.$loading({
@@ -156,6 +142,14 @@ export default {
       getDetail(param).then(
         response => {
           this.loading.close()
+          this.detailData = response.result
+          if (response.result.specification.length != 0) {
+            if (response.result.specification.length == 1) {
+              this.optionValue = response.result.specification[0].name
+              this.showOption = true
+            }
+            this.unitPrice = response.result.specification[0].price
+          }
           console.log(response)
         },
         error => {
@@ -165,12 +159,18 @@ export default {
       )
     }
   },
-  components: { NavHeader, NavFooter }
+  components: { NavHeader, NavFooter },
+  watch: {
+    'unitPrice'(val) {
+      this.totalPrice = val
+      // console.log(val);
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/base.scss';
-@import '../styles/GoodsDetail.scss';
+@import '../../styles/base.scss';
+@import '../../styles/GoodsDetail.scss';
 </style>
 

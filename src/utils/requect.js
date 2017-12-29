@@ -25,7 +25,7 @@ service.interceptors.request.use(config => {
 service.interceptors.response.use(
   response => {
     /**
-    * code为非20000是抛错 可结合自己业务进行修改
+    * code为非200是抛错 可结合自己业务进行修改
     */
     const res = response.data
     // console.log(res);
@@ -54,7 +54,7 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('err' + error)// for debug
+    console.log('err' + error) // for debug
     Message({
       message: error.message,
       type: 'error',
