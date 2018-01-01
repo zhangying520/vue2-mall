@@ -1,5 +1,5 @@
 <template>
-    <el-footer style="text-align: center;font-size: 12px;">
+    <el-footer style="text-align: center;font-size: 12px;line-height: 60px;">
         {{ Copyright }}
     </el-footer>
 </template>
@@ -16,5 +16,10 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../styles/base.scss";
-@import "../../styles/GoodsList.scss";
+// @import "../../styles/GoodsList.scss";
+
+.el-footer {
+  @include abs;
+  width: 100%;
+}
 </style>

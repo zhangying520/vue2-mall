@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Message, MessageBox } from 'element-ui'
 import store from '../store'
-// import { getToken } from '@/utils/auth'
+import { getToken } from '@/utils/auth'
 
 // 创建axios实例
 const service = axios.create({
@@ -12,7 +12,7 @@ const service = axios.create({
 // request 拦截器
 service.interceptors.request.use(config => {
   if (store.getters.token) {
-    // config.headers['X-Token'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
+    config.headers['Authorization'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
   }
   return config
 }, error => {
@@ -26,8 +26,10 @@ service.interceptors.response.use(
   response => {
     /**
     * code为非200是抛错 可结合自己业务进行修改
+    * code为100是未登录
     */
     const res = response.data
+    if (res.code == 100) return response.data
     // console.log(res);
     if (res.code !== 200) {
       Message({
@@ -46,6 +48,8 @@ service.interceptors.response.use(
           store.dispatch('FedLogOut').then(() => {
             location.reload() // 为了重新实例化vue-router对象 避免bug => 刷新
           })
+        }).catch(() => {
+          // TODO
         })
       }
       return Promise.reject('error')

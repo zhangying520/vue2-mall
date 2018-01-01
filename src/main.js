@@ -9,14 +9,20 @@ import './icons'
 
 Vue.config.productionTip = false
 
+// fade/zoom 等
+// import 'element-ui/lib/theme-chalk/base.css';
+// collapse 展开折叠
+// import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
+// Vue.component(CollapseTransition.name, CollapseTransition)
+
 import {
-  Button, Select, Container, Header, Main, Footer, Row,
+  Button, Select, Header, Main, Footer, Row,
   Col, Card, Breadcrumb, BreadcrumbItem, Carousel, CarouselItem, Loading, InputNumber,
-  Message, Form, FormItem, Input,
+  Message, Form, FormItem, Input, Dropdown, DropdownMenu, DropdownItem, MessageBox, Radio
 } from 'element-ui'
 Vue.prototype.$ELEMENT = { size: 'small' } // 用于改变组件的默认尺寸，默认small
 Vue.component(Button.name, Button)
-Vue.use(Container)
+// Vue.use(Container)
 Vue.use(Header)
 Vue.use(Main)
 Vue.use(Footer)
@@ -34,6 +40,11 @@ Vue.prototype.$message = Message
 Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Input)
+Vue.use(Dropdown)
+Vue.use(DropdownMenu)
+Vue.use(DropdownItem)
+Vue.prototype.$msgbox = MessageBox
+Vue.use(Radio)
 
 /* eslint-disable no-new */
 new Vue({

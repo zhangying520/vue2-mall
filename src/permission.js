@@ -18,23 +18,22 @@ router.beforeEach((to, from, next) => {
     if (to.path === '/login') {
       next({ path: '/' })
     } else {
-      // console.log(store);
       // if (store.getters.roles.length === 0) {
-        // console.log('没有token');
-        // store.dispatch('GetInfo').then(res => { // 拉取用户信息
-        //   next()
-        // }).catch(() => {
-        //   store.dispatch('FedLogOut').then(() => {
-        //     Message.error('验证失败,请重新登录')
-        //     next({ path: '/login' })
-        //   })
-        // })
+      //   // console.log('没有token');
+      //   store.dispatch('GetInfo').then(res => { // 拉取用户信息
+      //     next()
+      //   }).catch(() => {
+      //     store.dispatch('FedLogOut').then(() => {
+      //       Message.error('验证失败,请重新登录')
+      //       next({ path: '/login' })
+      //     })
+      //   })
       // } else {
         next()
       // }
     }
   } else {
-    // 判断是否跳转不需要 toke n的白名单页面
+    // 判断是否跳转不需要token的白名单组件
     if (whiteList.indexOf(to.path) !== -1) {
       next()
     } else {

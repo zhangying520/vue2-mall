@@ -5,6 +5,8 @@ import GoodsList from '@/views/GoodsList/'
 import GoodsDetail from '@/views/GoodsDetail/'
 import Login from '@/views/Login/index'
 import ErrorHtml from '@/views/404'
+import Cart from '@/views/Cart/'
+import Address from '@/views/Address/'
 
 Vue.use(Router)
 
@@ -31,6 +33,16 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/cart',
+      name: 'Cart',
+      component: Cart
+    },
+    {
+      path: '/address',
+      name: 'Address',
+      component: Address
     },
 
     { path: '*', redirect: '/404', hidden: true }

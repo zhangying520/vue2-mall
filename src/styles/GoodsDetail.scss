@@ -1,17 +1,17 @@
 $theme: #e62878;
-.global-sub-nav-line {
-  border-bottom: 1px solid #e1e1e1;
-  .global-sub-nav-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  .global-sub-nav-title {
-    @include f(18,px);
-    font-weight: 400;
-    height: 50px;
-    line-height: 50px;
-  }
-}
+// .global-sub-nav-line {
+//   border-bottom: 1px solid #e1e1e1;
+//   .global-sub-nav-inner {
+//     max-width: 1200px;
+//     margin: 0 auto;
+//   }
+//   .global-sub-nav-title {
+//     @include f(18,px);
+//     font-weight: 400;
+//     height: 50px;
+//     line-height: 50px;
+//   }
+// }
 
 .goods-detail {
     max-width: 1200px;

@@ -1,5 +1,5 @@
 <template>
-  <el-container>
+  <div>
 
     <nav-header></nav-header>
 
@@ -51,12 +51,12 @@
     </el-main>
 
 
-    <!-- <nav-footer></nav-footer> -->
-    <el-footer style="text-align: center;font-size: 12px;">
+    <nav-footer></nav-footer>
+    <!-- <el-footer style="text-align: center;font-size: 12px;">
       Copyright © 2017 Denton Inc. DDD 保留所有权利
-    </el-footer>
+    </el-footer> -->
 
-  </el-container>
+  </div>
 </template>
 
 <script>

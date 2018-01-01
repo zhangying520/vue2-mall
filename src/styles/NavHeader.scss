@@ -33,6 +33,7 @@ $theme: #e62878;
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  padding-right: 30px;
   .navbar-menu-container {
     display: flex;
     justify-content: flex-end;
@@ -46,8 +47,10 @@ $theme: #e62878;
   .navbar-cart-container {
     line-height: 25px;
     width: 40px;
-    position: relative;
+    @include abs;
     @include tar;
+    top: 10px;
+    right: 0;
     &:hover {
       @include cur;
     }

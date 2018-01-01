@@ -1,12 +1,7 @@
 <template>
   <div>
     <nav-header></nav-header>
-
-    <nav class="global-sub-nav-line">
-      <div :span="24" class="global-sub-nav-inner">
-        <h5 class="global-sub-nav-title">{{detailData.title}}</h5>
-      </div>
-    </nav>
+    <nav-bread>{{ detailData.title }}</nav-bread>
 
     <div class="goods-detail">
       <el-row :gutter="60">
@@ -19,7 +14,7 @@
         </el-col>
         <el-col :span="12">
           <div class="property-option" :class="showOption ? 'property-option-show' : ''" >
-            <div class="property-option-title" v-for="(item, index) in detailData.sale_attr">
+            <div class="property-option-title" v-for="(item, index) in detailData.sale_attr" :key="index">
               {{item.name}}
               <div class="property-option-value">{{ optionValue }}</div>
               <a href="javascript:;" v-if="detailData.specification.length != 1" class="property-option-change" @click="showOption = !showOption">修改</a>
@@ -53,7 +48,7 @@
                   <el-button plain :disabled="optionValue == ''" :class="optionValue == '' ? '' : 'mt-button--primary'" class="buy-now">立即购买</el-button>
                 </div>
                 <div class="product-button-line">
-                  <a href="javascript:;" class="btn-addcart" @click="addCart">添加到购物袋</a>
+                  <a href="javascript:;" class="btn-addcart" @click="addToCart">添加到购物袋</a>
                 </div>
               </div>
             </div>
@@ -76,7 +71,10 @@
 <script>
 import NavHeader from '@/components/NavHeader'
 import NavFooter from '@/components/NavFooter'
-import { getDetail, addCart } from '@/api/goods.js'
+import NavBread from '@/components/Breadcrumb'
+import { mapActions } from 'vuex'
+import { getDetail } from '@/api/goods'
+import { addCart } from '@/api/cart'
 export default {
   data() {
     return {
@@ -94,10 +92,8 @@ export default {
     console.log(this.$route.params)
     this.getGoodsDetail()
   },
-  updated() {
-    // console.log(this.showOption)
-  },
   methods: {
+    ...mapActions(['CartCount']),
     show(e, data, index) {
       this.showOption = !this.showOption
       this.optionValue = e.target.innerText
@@ -109,7 +105,7 @@ export default {
     // console.log(value);
       this.totalPrice = this.unitPrice * value
     },
-    addCart() {
+    addToCart() { // 添加到购物车
       this.loading = this.$loading({
         lock: true,
         text: 'Loading',
@@ -119,6 +115,7 @@ export default {
       addCart(params).then(
         response => {
           console.log(response);
+          this.CartCount()
           this.loading.close()
           this.$message({
             showClose: true,
@@ -132,7 +129,7 @@ export default {
         }
       )
     },
-    getGoodsDetail() {
+    getGoodsDetail() { // 获取当前商品详情
       this.loading = this.$loading({
         lock: true,
         text: 'Loading',
@@ -159,7 +156,7 @@ export default {
       )
     }
   },
-  components: { NavHeader, NavFooter },
+  components: { NavHeader, NavFooter, NavBread },
   watch: {
     'unitPrice'(val) {
       this.totalPrice = val
