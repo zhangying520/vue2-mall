@@ -4,7 +4,7 @@
     <nav-bread>收货地址</nav-bread>
 
     <div class="address">
-      <h3 class="address-title">送货地址</h3>
+      <h3 class="address-title" @click="openAdd">送货地址</h3>
       <el-row :gutter="20">
         <el-col :span="6" v-for="(item, index) in addressList" :key="index" class="address-item">
           <el-card class="box-card">
@@ -26,12 +26,46 @@
       </el-row>
       <el-row :gutter="20">
         <el-col :span="6" :offset="18">
-          <el-button plain class="commitOrder">提交订单</el-button>
+          <el-button plain class="commitOrder" @click="commitOrder">提交订单</el-button>
         </el-col>
       </el-row>
-      <div class="product-button-line">
 
-      </div>
+      <div class="product-button-line"></div>
+
+      <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
+        <el-form :model="addressForm">
+          <el-form-item label="收货人姓名" :label-width="formLabelWidth">
+            <el-input v-model="addressForm.name" auto-complete="off" style="width:208px;"></el-input>
+          </el-form-item>
+          <el-form-item label="详细地址" :label-width="formLabelWidth">
+            <el-select v-model="addressForm.provinces" placeholder="请选择省份">
+              <el-option label="广州" value="guangzhou"></el-option>
+              <el-option label="上海" value="shanghai"></el-option>
+              <el-option label="北京" value="beijing"></el-option>
+            </el-select>
+            <el-select v-model="addressForm.city" placeholder="请选择城市">
+              <el-option label="天河区" value="1"></el-option>
+              <el-option label="海珠区" value="2"></el-option>
+              <el-option label="萝岗区" value="3"></el-option>
+            </el-select>
+            <el-select v-model="addressForm.area" placeholder="请选择区域">
+              <el-option label="大观中路小新塘" value="11"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="收货人电话" :label-width="formLabelWidth">
+            <el-input v-model="addressForm.phone" auto-complete="off" style="width:208px;"></el-input>
+          </el-form-item>
+          <el-form-item label="是否设为默认" :label-width="formLabelWidth">
+            <el-checkbox v-model="addressForm.isDefault">默认</el-checkbox>
+            <!-- <el-input v-model="" auto-complete="off" style="width:208px;"></el-input> -->
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="dialogFormVisible = false">取 消</el-button>
+          <el-button type="primary" @click="commitAddress">确 定</el-button>
+        </div>
+      </el-dialog>
+
     </div>
 
     <nav-footer></nav-footer>
@@ -42,7 +76,7 @@
 import NavHeader from '@/components/NavHeader'
 import NavFooter from '@/components/NavFooter'
 import NavBread from '@/components/Breadcrumb'
-import { address, setDefault, deleteAddress } from '@/api/address'
+import { address, setDefault, deleteAddress, addAddress, getProvinces } from '@/api/address'
 
 export default {
   components: { NavHeader, NavFooter, NavBread },
@@ -50,7 +84,20 @@ export default {
     return {
       msg: '这里是地址组件',
       radio: 0,
-      addressList: []
+      addressList: [],
+      addressForm: {
+        name: '',
+        region: '',
+        phone: '',
+        isDefault: false,
+        provinces: '',
+        city: '',
+        area: '',
+        delivery: false,
+      },
+      formLabelWidth: '120px',
+      dialogTableVisible: false,
+      dialogFormVisible: false,
     }
   },
   mounted() {
@@ -126,6 +173,41 @@ export default {
           // TODO
           // 点击了cancel
         });
+    },
+    openAdd() {
+      this.dialogFormVisible = true
+      getProvinces().then(response => {
+        console.log(response)
+      }, error => {
+        console.log(error)
+      })
+    },
+    commitAddress() { // 添加收货地址
+      let params = {
+        consigneeName: this.addressForm.name,
+        streetAddress: this.addressForm.provinces,
+        phone: this.addressForm.phone,
+        isDefault: this.addressForm.isDefault
+      }
+      // console.log(params)
+      addAddress(params).then(response => {
+        console.log(response)
+        this.dialogFormVisible = false
+        this.$message({
+          message: '添加成功!',
+          type: 'success'
+        })
+        this.getAddress()
+      }, error => {
+        console.error(error)
+      })
+    },
+    // 生成订单
+    commitOrder() {
+      this.$message({
+        showClose: true,
+        message: '功能尚未开放，请耐心等待!'
+      });
     }
   }
 }

@@ -36,7 +36,7 @@
           <el-col :span="6" v-for="(o, index) in goodsList" :key="index">
             <router-link :to="{path: 'goods/detail/' + o.product_id}">
               <el-card :body-style="{ padding: '0px' }">
-                <img :src="iconHost + o.product_image" class="goods-list-image">
+                <img v-lazy="iconHost + o.product_image" class="goods-list-image">
                 <div style="padding: 14px;">
                   <span class="product-name">{{ o.product_name }}</span>
                   <div class="bottom clearfix">

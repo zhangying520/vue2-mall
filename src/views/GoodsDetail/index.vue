@@ -73,7 +73,7 @@ import NavHeader from '@/components/NavHeader'
 import NavFooter from '@/components/NavFooter'
 import NavBread from '@/components/Breadcrumb'
 import { mapActions } from 'vuex'
-import { getDetail } from '@/api/goods'
+import { getDetail } from '@/api/goods_detail'
 import { addCart } from '@/api/cart'
 export default {
   data() {

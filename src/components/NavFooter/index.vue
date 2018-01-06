@@ -21,5 +21,6 @@ export default {
 .el-footer {
   @include abs;
   width: 100%;
+  // bottom: 0;
 }
 </style>

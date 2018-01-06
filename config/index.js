@@ -10,9 +10,13 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
+    // 跨域设置
     proxyTable: {
-      // '/goods/*': { target: 'http://localhost:3000' }
-    }, // 跨域设置
+      // '/v1/*': {
+      //   target: 'http://apis.map.qq.com/ws/district',
+      //   changeOrigin: true, // 是否跨域
+      // }
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST

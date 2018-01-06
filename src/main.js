@@ -6,6 +6,13 @@ import router from './router'
 import store from '@/store'
 import './permission' // 验证
 import './icons'
+// https://github.com/hilongjw/vue-lazyload
+import VueLazyload from 'vue-lazyload'
+Vue.use(VueLazyload, {
+  error: 'static/logo.png',// 请求失败后显示的图片
+  loading: 'static/loading.gif',// 加载的loading过渡效果
+  try: 6 // 加载图片数量
+})
 
 Vue.config.productionTip = false
 
@@ -16,13 +23,16 @@ Vue.config.productionTip = false
 // Vue.component(CollapseTransition.name, CollapseTransition)
 
 import {
-  Button, Select, Header, Main, Footer, Row,
+  Button, Select, Option, Header, Main, Footer, Row,
   Col, Card, Breadcrumb, BreadcrumbItem, Carousel, CarouselItem, Loading, InputNumber,
-  Message, Form, FormItem, Input, Dropdown, DropdownMenu, DropdownItem, MessageBox, Radio
+  Message, Form, FormItem, Input, Dropdown, DropdownMenu, DropdownItem, MessageBox, Radio,
+  Dialog, Checkbox
 } from 'element-ui'
 Vue.prototype.$ELEMENT = { size: 'small' } // 用于改变组件的默认尺寸，默认small
 Vue.component(Button.name, Button)
 // Vue.use(Container)
+Vue.use(Select)
+Vue.use(Option)
 Vue.use(Header)
 Vue.use(Main)
 Vue.use(Footer)
@@ -45,6 +55,8 @@ Vue.use(DropdownMenu)
 Vue.use(DropdownItem)
 Vue.prototype.$msgbox = MessageBox
 Vue.use(Radio)
+Vue.use(Dialog)
+Vue.use(Checkbox)
 
 /* eslint-disable no-new */
 new Vue({
