@@ -1,5 +1,5 @@
 ## 基于 vue2 + vuex 构建一个单页面的电商网站
-此项目纯属个人瞎搞以及学习。
+此项目纯属个人瞎搞以及学习。[项目在线地址](http://zhoushengdong.com/dist/index.html)
 
 ## 技术栈
 
