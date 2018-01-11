@@ -1,4 +1,5 @@
 ## 基于 vue2 + vuex 构建一个单页面的电商网站
+此项目纯属个人瞎搞以及学习。
 
 ## 技术栈
 
@@ -22,6 +23,7 @@ npm run dev
 此项目有后台源码，如果想前后台同时开发，可以下载对应的后台：[后台项目传送地址](https://github.com/zhoushengdong/Vue-Express-Server)。
 
 # 部分截图
+123456789
 
 ```
 ├── build                      // 构建相关
@@ -39,7 +41,7 @@ npm run dev
 │   ├── styles                 // 全局样式
 │   ├── utils                  // 全局公用方法
 │   ├── vendor                 // 公用vendor
-│   ├── views                   // view
+│   ├── views                  // view
 │   ├── App.vue                // 入口页面
 │   ├── main.js                // 入口 加载组件 初始化等
 │   └── permission.js          // 权限管理
