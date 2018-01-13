@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="login-container">
     <el-form autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left" label-width="0px"
       class="card-box login-form">
@@ -77,7 +77,7 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.Login(this.loginForm).then(() => {
+          this.Login(this.loginForm).then((response) => {
             this.loading = false
             this.$router.push({ path: '/' })
           }).catch(() => {
@@ -108,7 +108,7 @@ export default {
     @include relative;
     height: 100vh;
     // background-color: $bg;
-    background: url('../../../static/back2.jpg') no-repeat center center;
+    background: url('../../assets/back2.jpg') no-repeat center center;
     background-size: cover;
     input:-webkit-autofill {
       -webkit-box-shadow: 0 0 0px 1000px #293444 inset !important;
