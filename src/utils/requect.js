@@ -27,6 +27,7 @@ service.interceptors.response.use(
     /**
     * code为非200是抛错 可结合自己业务进行修改
     * code为100是未登录
+    * code为400登录账号密码错误
     */
     const res = response.data
     if (res.code == 100) return response.data
