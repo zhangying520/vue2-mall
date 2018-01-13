@@ -35,13 +35,28 @@ export function addAddress(params) {
   })
 }
 
-// 获取省份信息 [腾讯 WebService API]
+// 获取省份信息
 export function getProvinces(params) {
   return requect({
-    url: 'http://apis.map.qq.com/ws/district/v1/list',
+    url: '/district/list',
     method: 'get',
-    params: {
-      key: 'WE6BZ-GIQKR-552WN-WNJT7-2GXEQ-SVFKT'
-    }
+  })
+}
+
+// 获取城市
+export function getCity(params) {
+  return requect({
+    url: '/district/city',
+    method: 'get',
+    params: params
+  })
+}
+
+// 获取区域
+export function getArea(params) {
+  return requect({
+    url: '/district/area',
+    method: 'get',
+    params: params
   })
 }
