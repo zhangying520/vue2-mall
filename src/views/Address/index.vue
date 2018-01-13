@@ -38,18 +38,14 @@
             <el-input v-model="addressForm.name" auto-complete="off" style="width:208px;"></el-input>
           </el-form-item>
           <el-form-item label="详细地址" :label-width="formLabelWidth">
-            <el-select v-model="addressForm.provinces" placeholder="请选择省份">
-              <el-option label="广州" value="guangzhou"></el-option>
-              <el-option label="上海" value="shanghai"></el-option>
-              <el-option label="北京" value="beijing"></el-option>
+            <el-select v-model="addressForm.provinces" placeholder="请选择省份" @change="selectedPro">
+              <el-option :label="item.fullname" :value="item.provinces_id" v-for="(item, index) in allProvince" :key="index"></el-option>
             </el-select>
-            <el-select v-model="addressForm.city" placeholder="请选择城市">
-              <el-option label="天河区" value="1"></el-option>
-              <el-option label="海珠区" value="2"></el-option>
-              <el-option label="萝岗区" value="3"></el-option>
+            <el-select v-model="addressForm.city" placeholder="请选择城市" @change="selectedCity">
+              <el-option :label="cityItem.name" :value="cityItem.city_id" v-for="(cityItem, index) in allCity.fullname" :key="index"></el-option>
             </el-select>
             <el-select v-model="addressForm.area" placeholder="请选择区域">
-              <el-option label="大观中路小新塘" value="11"></el-option>
+              <el-option :label="areaItem.name" :value="areaItem.area_id" v-for="(areaItem, index) in allArea.fullname" :key="index"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="收货人电话" :label-width="formLabelWidth">
@@ -76,7 +72,7 @@
 import NavHeader from '@/components/NavHeader'
 import NavFooter from '@/components/NavFooter'
 import NavBread from '@/components/Breadcrumb'
-import { address, setDefault, deleteAddress, addAddress, getProvinces } from '@/api/address'
+import { address, setDefault, deleteAddress, addAddress, getProvinces, getCity, getArea } from '@/api/address'
 
 export default {
   components: { NavHeader, NavFooter, NavBread },
@@ -98,6 +94,9 @@ export default {
       formLabelWidth: '120px',
       dialogTableVisible: false,
       dialogFormVisible: false,
+      allProvince: [],
+      allCity: [],
+      allArea: []
     }
   },
   mounted() {
@@ -174,9 +173,47 @@ export default {
           // 点击了cancel
         });
     },
+    // 打开新增收货地址
     openAdd() {
       this.dialogFormVisible = true
+      this.provinces()
+    },
+    selectedPro(val) {
+      this.city(val)
+      // console.log(val)
+    },
+    selectedCity(val) {
+      this.area(val)
+      // console.log(val)
+    },
+    selectedArea(val) {
+      console.log(val)
+
+    },
+    // 获取所有省
+    provinces(val) {
       getProvinces().then(response => {
+        this.allProvince = response.result
+        console.log(response)
+      }, error => {
+        console.log(error)
+      })
+    },
+    // 获取所有市
+    city(provincesId) {
+      let id = { provincesId: provincesId }
+      getCity(id).then(response => {
+        this.allCity = response.result
+        // console.log(response);
+      }, error => {
+        console.log(error)
+      })
+    },
+    // 获取所有区
+    area(cityId) {
+      let id = { cityId: cityId }
+      getArea(id).then(response => {
+        this.allArea = response.result
         console.log(response)
       }, error => {
         console.log(error)
