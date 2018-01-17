@@ -87,7 +87,7 @@ export default {
     },
     init() { // 购物车商品列表
       let params = { user_id: getToken() }
-      getCartList(params).then(response => {
+      getCartList().then(response => {
         this.cartList = response.result
         console.log(response)
       }, error => {

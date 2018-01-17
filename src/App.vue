@@ -21,4 +21,9 @@ export default {
   // text-align: center;
   // color: #2c3e50;
 }
+
+// 隐藏滚动条
+// ::-webkit-scrollbar{
+//   display:none;
+// }
 </style>

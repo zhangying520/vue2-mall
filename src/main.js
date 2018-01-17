@@ -26,7 +26,7 @@ import {
   Button, Select, Option, Header, Main, Footer, Row,
   Col, Card, Breadcrumb, BreadcrumbItem, Carousel, CarouselItem, Loading, InputNumber,
   Message, Form, FormItem, Input, Dropdown, DropdownMenu, DropdownItem, MessageBox, Radio,
-  Dialog, Checkbox
+  Dialog, Checkbox, Notification,
 } from 'element-ui'
 Vue.prototype.$ELEMENT = { size: 'small' } // 用于改变组件的默认尺寸，默认small
 Vue.component(Button.name, Button)
@@ -57,6 +57,7 @@ Vue.prototype.$msgbox = MessageBox
 Vue.use(Radio)
 Vue.use(Dialog)
 Vue.use(Checkbox)
+Vue.prototype.$notify = Notification
 
 /* eslint-disable no-new */
 new Vue({

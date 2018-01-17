@@ -8,7 +8,7 @@
         <el-col :span="12">
           <el-carousel trigger="click" height="550px" :autoplay="false" indicator-position="outside">
             <el-carousel-item v-for="(current, o) in detailData.preview_images" :key="o">
-              <img :src="current" alt="" class="detail-image">
+              <img v-lazy="current" alt="" class="detail-image">
             </el-carousel-item>
           </el-carousel>
         </el-col>
@@ -22,7 +22,7 @@
             <div class="property-option-list" >
               <el-row :gutter="20">
                 <el-col :span="12" v-for="(item, index) in detailData.specification" :key="index" v-if="index != 0">
-                  <el-button class="property-option-btn" :class="{active:active==index}" @click="show($event, item, index)">{{item.name}}</el-button>
+                  <el-button class="property-option-btn" :class="{active:active==index}" @click="show(item, index)">{{item.name}}</el-button>
                 </el-col>
               </el-row>
             </div>
@@ -45,7 +45,7 @@
 
               <div class="product-buttons">
                 <div class="product-button-line">
-                  <el-button plain :disabled="optionValue == ''" :class="optionValue == '' ? '' : 'mt-button--primary'" class="buy-now">立即购买</el-button>
+                  <el-button plain :disabled="optionValue == ''" :class="optionValue == '' ? '' : 'mt-button--primary'" class="buy-now" @click="buyNow">立即购买</el-button>
                 </div>
                 <div class="product-button-line">
                   <a href="javascript:;" class="btn-addcart" @click="addToCart">添加到购物袋</a>
@@ -59,7 +59,7 @@
       <div class="product-detail">
         <h2 class="product-detail-title">商品详情</h2>
         <div class="product-detail-image-box" v-for="(item, index) in detailData.images" :key="index">
-          <img :src="item" alt="">
+          <img v-lazy="item" alt="">
         </div>
       </div>
     </div>
@@ -78,14 +78,15 @@ import { addCart } from '@/api/cart'
 export default {
   data() {
     return {
-      detailData: '',
-      purQuantity: 0,
+      detailData: [],
+      purQuantity: 1, // 数量
       showOption: false,
       optionValue: '',
       unitPrice: '无', // 单价
       totalPrice: null, // 总价
       deliveryTime: '', // 发货时间
-      active: 0
+      active: 0,
+      checkedId: ''
     }
   },
   mounted() {
@@ -94,11 +95,17 @@ export default {
   },
   methods: {
     ...mapActions(['CartCount']),
-    show(e, data, index) {
+    show(data, index) {
+      // 选中商品的id
+      this.checkedId = data.id
       this.showOption = !this.showOption
-      this.optionValue = e.target.innerText
+      // 选中商品的名字
+      this.optionValue = data.name
+      // 选中商品的价钱
       this.unitPrice = data.price
+      // 发货时间
       this.deliveryTime = data.delivery_tip
+      // 当前高亮
       this.active = index
     },
     handleChange(value) { // 计算总价
@@ -106,15 +113,30 @@ export default {
       this.totalPrice = this.unitPrice * value
     },
     addToCart() { // 添加到购物车
+      if(this.detailData.specification.length > 1) {
+        if (!this.checkedId) {
+          this.$notify({
+            title: '温馨提示',
+            message: '请选择商品颜色',
+            type: 'warning'
+          });
+          return;
+        }
+        console.log(this.checkedId)
+      }
+
       this.loading = this.$loading({
         lock: true,
         text: 'Loading',
         background: 'rgba(0, 0, 0, 0.7)'
       })
+      let goodsNum = this.purQuantity
+      let goodsId = this.checkedId
+      // 只有一个选择时不用提交商品类型id
       let params = { product_id: this.$route.params.goodsId }
       addCart(params).then(
         response => {
-          console.log(response);
+          console.log(response)
           this.CartCount()
           this.loading.close()
           this.$message({
@@ -128,6 +150,12 @@ export default {
           this.loading.close()
         }
       )
+    },
+    buyNow() { // 立即购买
+      this.$message({
+        showClose: true,
+        message: '功能尚未开放，请耐心等待!'
+      })
     },
     getGoodsDetail() { // 获取当前商品详情
       this.loading = this.$loading({
