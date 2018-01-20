@@ -73,6 +73,7 @@ import NavHeader from '@/components/NavHeader'
 import NavFooter from '@/components/NavFooter'
 import NavBread from '@/components/Breadcrumb'
 import { address, setDefault, deleteAddress, addAddress, getProvinces, getCity, getArea } from '@/api/address'
+import { payMent } from '@/api/payMent'
 
 export default {
   components: { NavHeader, NavFooter, NavBread },
@@ -241,10 +242,14 @@ export default {
     },
     // 生成订单
     commitOrder() {
-      this.$message({
-        showClose: true,
-        message: '功能尚未开放，请耐心等待!'
-      });
+      // this.$message({
+      //   showClose: true,
+      //   message: '功能尚未开放，请耐心等待!'
+      // });
+      let params = {order_total: 999, address_id: 1}
+      payMent(params).then(response => {
+        console.log(response);
+      })
     }
   }
 }
