@@ -113,11 +113,11 @@ export default {
       this.totalPrice = this.unitPrice * value
     },
     addToCart() { // 添加到购物车
+      // 商品规格大于1时先选择规格才能提交
       if(this.detailData.specification.length > 1) {
         if (!this.checkedId) {
-          this.$notify({
-            title: '温馨提示',
-            message: '请选择商品颜色',
+          this.$message({
+            message: '请先选择规格',
             type: 'warning'
           });
           return;
@@ -131,9 +131,13 @@ export default {
         background: 'rgba(0, 0, 0, 0.7)'
       })
       let goodsNum = this.purQuantity
-      let goodsId = this.checkedId
+      let specification = this.checkedId
       // 只有一个选择时不用提交商品类型id
-      let params = { product_id: this.$route.params.goodsId }
+      let params = {
+        product_id: this.$route.params.goodsId,
+        specification_id: specification,
+        pur_quantity: goodsNum
+      }
       addCart(params).then(
         response => {
           console.log(response)

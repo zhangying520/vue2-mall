@@ -249,6 +249,11 @@ export default {
       let params = {order_total: 999, address_id: 1}
       payMent(params).then(response => {
         console.log(response);
+        this.$message({
+          showClose: true,
+          type: 'success',
+          message: response.msg
+        });
       })
     }
   }

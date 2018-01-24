@@ -6,9 +6,9 @@
       <div class="cart-list">
         <div class="order-list-item">
           <div class="order-goods-item" v-for="(item, index) in cartList" :key="index">
-            <a href="javascript:;" class="order-goods-image lazy-box">
+            <router-link class="order-goods-image lazy-box" :to="{path: '/goods/detail/' + item.product_id}">
               <img :src="iconHost + item.product_image" alt="">
-            </a>
+            </router-link>
             <div class="order-goods-info">
               <p class="order-goods-name">
                 <!-- 美图M8定制版手机壳 - 海洋传说 -->
@@ -203,6 +203,7 @@ export default {
     position: relative;
     height: 120px;
     @include clear;
+    // @include cur;
   }
   .order-goods-name {
     @include fl;
