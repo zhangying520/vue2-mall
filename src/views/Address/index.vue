@@ -220,14 +220,18 @@ export default {
         console.log(error)
       })
     },
-    commitAddress() { // 添加收货地址
+    // 添加收货地址
+    commitAddress() {
       let params = {
-        consigneeName: this.addressForm.name,
-        streetAddress: this.addressForm.provinces,
-        phone: this.addressForm.phone,
-        isDefault: this.addressForm.isDefault
+        consigneeName: this.addressForm.name, // 收货人姓名
+        provincesId: this.addressForm.provinces, // 省份id
+        cityId: this.addressForm.city, // 城市id
+        areaId: this.addressForm.area, // 区域id
+        streetAddress: '暂时不填', // 地址详细信息
+        phone: this.addressForm.phone, // 手机
+        isDefault: this.addressForm.isDefault // 是否默认
       }
-      // console.log(params)
+
       addAddress(params).then(response => {
         console.log(response)
         this.dialogFormVisible = false
