@@ -8,7 +8,7 @@
         <el-col :span="12">
           <el-carousel trigger="click" height="550px" :autoplay="false" indicator-position="outside">
             <el-carousel-item v-for="(current, o) in detailData.preview_images" :key="o">
-              <img v-lazy="current" alt="" class="detail-image">
+              <img v-lazy="checkedGoods.image? checkedGoods.image: current" alt="" class="detail-image">
             </el-carousel-item>
           </el-carousel>
         </el-col>
@@ -16,13 +16,13 @@
           <div class="property-option" :class="showOption ? 'property-option-show' : ''" >
             <div class="property-option-title" v-for="(item, index) in detailData.sale_attr" :key="index">
               {{item.name}}
-              <div class="property-option-value">{{ optionValue }}</div>
+              <div class="property-option-value">{{ checkedGoods.name }}</div>
               <a href="javascript:;" v-if="detailData.specification.length != 1" class="property-option-change" @click="showOption = !showOption">修改</a>
             </div>
             <div class="property-option-list" >
               <el-row :gutter="20">
-                <el-col :span="12" v-for="(item, index) in detailData.specification" :key="index" v-if="index != 0">
-                  <el-button class="property-option-btn" :class="{active:active==index}" @click="show(item, index)">{{item.name}}</el-button>
+                <el-col :span="12" v-for="(item, index) in detailData.specification" :key="index">
+                  <el-button class="property-option-btn" :class="{'active':active==index}" @click="show(item, index)">{{item.name}}</el-button>
                 </el-col>
               </el-row>
             </div>
@@ -30,7 +30,7 @@
             <div class="product-number">
               <div class="product-number-label">购买数量</div>
               <div class="product-number-value">
-                <el-input-number size="small" :min="1" v-model="purQuantity" @change="handleChange"></el-input-number>
+                <el-input-number size="small" :min="1" :max="checkedGoods.stock" v-model="purQuantity"></el-input-number>
               </div>
             </div>
 
@@ -40,12 +40,12 @@
                   RMB　
                   <span>{{ totalPrice }}</span>
                 </div>
-                <div class="product-price-time">{{ deliveryTime }}</div>
+                <div class="product-price-time">{{ checkedGoods.delivery_tip }}</div>
               </div>
 
               <div class="product-buttons">
                 <div class="product-button-line">
-                  <el-button plain :disabled="optionValue == ''" :class="optionValue == '' ? '' : 'mt-button--primary'" class="buy-now" @click="buyNow">立即购买</el-button>
+                  <el-button plain :disabled="checkedGoods.name ? false : true" :class="checkedGoods.name ? 'mt-button--primary' : ''" class="buy-now" @click="buyNow">立即购买</el-button>
                 </div>
                 <div class="product-button-line">
                   <a href="javascript:;" class="btn-addcart" @click="addToCart">添加到购物袋</a>
@@ -81,48 +81,46 @@ export default {
       detailData: [],
       purQuantity: 1, // 数量
       showOption: false,
-      optionValue: '',
-      unitPrice: '无', // 单价
-      totalPrice: null, // 总价
-      deliveryTime: '', // 发货时间
-      active: 0,
-      checkedId: ''
+      initPrice: '无', // 单价
+      active: -1,
+      checkedGoods: {}
     }
   },
+  components: { NavHeader, NavFooter, NavBread },
   mounted() {
     console.log(this.$route.params)
     this.getGoodsDetail()
   },
+  computed: {
+    // 计算总价
+    totalPrice() {
+      return this.initPrice * this.purQuantity
+    }
+  },
   methods: {
     ...mapActions(['CartCount']),
     show(data, index) {
-      // 选中商品的id
-      this.checkedId = data.id
+      console.log(data);
+      // 选中商品的信息
+      this.checkedGoods = data
+      this.purQuantity = 1
+
       this.showOption = !this.showOption
-      // 选中商品的名字
-      this.optionValue = data.name
       // 选中商品的价钱
-      this.unitPrice = data.price
-      // 发货时间
-      this.deliveryTime = data.delivery_tip
+      this.initPrice = data.price
       // 当前高亮
       this.active = index
-    },
-    handleChange(value) { // 计算总价
-    // console.log(value);
-      this.totalPrice = this.unitPrice * value
     },
     addToCart() { // 添加到购物车
       // 商品规格大于1时先选择规格才能提交
       if(this.detailData.specification.length > 1) {
-        if (!this.checkedId) {
+        if (!this.checkedGoods.id) {
           this.$message({
             message: '请先选择规格',
             type: 'warning'
           });
           return;
         }
-        console.log(this.checkedId)
       }
 
       this.loading = this.$loading({
@@ -131,7 +129,7 @@ export default {
         background: 'rgba(0, 0, 0, 0.7)'
       })
       let goodsNum = this.purQuantity
-      let specification = this.checkedId
+      let specification = this.checkedGoods.id
       // 只有一个选择时不用提交商品类型id
       let params = {
         product_id: this.$route.params.goodsId,
@@ -174,10 +172,10 @@ export default {
           this.detailData = response.result
           if (response.result.specification.length != 0) {
             if (response.result.specification.length == 1) {
-              this.optionValue = response.result.specification[0].name
               this.showOption = true
             }
-            this.unitPrice = response.result.specification[0].price
+            // 初始化设置价格为第一个商品价格
+            this.initPrice = response.result.specification[0].price
           }
           console.log(response)
         },
@@ -186,13 +184,6 @@ export default {
           console.log(error)
         }
       )
-    }
-  },
-  components: { NavHeader, NavFooter, NavBread },
-  watch: {
-    'unitPrice'(val) {
-      this.totalPrice = val
-      // console.log(val);
     }
   }
 }
