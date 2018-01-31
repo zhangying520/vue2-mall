@@ -16,7 +16,7 @@
                 <div class="set-btn">
                   <el-radio :label="index" v-model="radio" size="mini" @change="setDefaultAddress(item.address_id)">设为默认</el-radio>
                 </div>
-                <div class="remove-btn" @click="removeAddress(item.address_id)">
+                <div class="remove-btn" @click="removeAddress(item.address_id, item.is_default)">
                   <i class="el-icon-delete"></i>
                 </div>
               </div>
@@ -79,7 +79,6 @@ export default {
   components: { NavHeader, NavFooter, NavBread },
   data() {
     return {
-      msg: '这里是地址组件',
       radio: 0,
       addressList: [],
       addressForm: {
@@ -126,7 +125,7 @@ export default {
       })
       // console.log(val);
     },
-    removeAddress(addressId) { // 删除地址
+    removeAddress(addressId, isDefault) { // 删除地址
       const h = this.$createElement;
         this.$msgbox({
           title: '消息',
@@ -138,10 +137,10 @@ export default {
           beforeClose: (action, instance, done) => {
             if (action === 'confirm') {
               instance.confirmButtonLoading = true;
-              instance.confirmButtonText = '执行中...';
+              instance.confirmButtonText = '删除中...';
 
               // 删除地址
-              let param = { addressId: addressId }
+              let param = { addressId: addressId, is_default: isDefault }
               deleteAddress(param).then(response => {
                 console.log(response)
                 done() // 关闭 MsgBox
@@ -152,7 +151,6 @@ export default {
                 // location.reload()
 
               }, error => {
-                console.error(error)
                 done()
                 this.$message({
                   type: 'error',
