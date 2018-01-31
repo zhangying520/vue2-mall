@@ -7,12 +7,12 @@
         <div class="order-list-item">
           <div class="order-goods-item" v-for="(item, index) in cartList" :key="index">
             <router-link class="order-goods-image lazy-box" :to="{path: '/goods/detail/' + item.product_id}">
-              <img :src="iconHost + item.product_image" alt="">
+              <img :src="item.specification.image" alt="">
             </router-link>
             <div class="order-goods-info">
               <p class="order-goods-name">
                 <!-- 美图M8定制版手机壳 - 海洋传说 -->
-                {{ item.product_name }}
+                {{ item.product_name }} ({{ item.specification.name }})
               </p>
               <div class="order-goods-price">
                 RMB {{ item.sale_price }}
@@ -21,10 +21,12 @@
 
             <div class="order-goods-count top-line-lighter">
               <div class="order-goods-number">
-                <el-input-number size="small" :min="1" :value="item.product_id" v-model="item.product_number" @change="(value) => edit(value, item.product_id)"></el-input-number>
+                <el-input-number size="small" :min="1"
+                :max="item.specification.stock" :value="item.product_id"
+                v-model="item.product_number" @change="(value) => edit(value, item.product_id)"></el-input-number>
               </div>
               <div class="order-goods-total">
-                RMB {{ item.product_number * item.sale_price }}
+                RMB {{ item.product_number * item.specification.price }}
               </div>
               <a href="javascript:;" class="order-goods-btn-delete" @click="deletes(item.product_id)">
                 <svg-icon icon-class="delete" class="delete"></svg-icon>
@@ -61,8 +63,8 @@ export default {
   components: { NavHeader, NavFooter, NavBread },
   data() {
     return {
-      msg: '这里是购物车组件',
       iconHost: '',
+      maxQuantity: '',
       // cartQuantity: 10,
       cartList: []
     }
@@ -152,7 +154,7 @@ export default {
     'orderAmount': function (param) {
       var amount = 0;
       this.cartList.map((item, index) => {
-        amount = parseInt(amount) + parseInt(item.product_number) * parseInt(item.sale_price)
+        amount = parseInt(amount) + parseInt(item.product_number) * parseInt(item.specification.price)
       })
       // console.log(amount);
       return amount
