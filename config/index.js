@@ -10,10 +10,11 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    // 跨域设置
+    // proxy 跨域设置
     proxyTable: {
-      // '/v1/*': {
-      //   target: 'http://apis.map.qq.com/ws/district',
+      // '/api': {
+      //   target: 'http://apis.map.qq.com/ws/district', // 网站名
+      //   pathRewrite: { '^/api': '' },
       //   changeOrigin: true, // 是否跨域
       // }
     },

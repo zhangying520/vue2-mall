@@ -21,7 +21,7 @@
   // input[type="text"],input[type="button"]{-webkit-appearance: none;border-radius: 0;font-family:'Microsoft Yahei','黑体', Arial, Helvetica, sans-serif;}
   // input[type="text"]{border:solid 1px #ccc; border-radius:0;}
   dfn {font-style: normal;font-family: Arial;}
-  html { overflow-y: scroll; /*padding-left: calc(100vw - 100%);*/ }
+  // html { overflow-y: scroll; /*padding-left: calc(100vw - 100%);*/ }
 }
 
 // Content Box Init
@@ -29,6 +29,36 @@
   max-width: 1200px;
   margin: 0 auto;
 }
+// 定义一个变量和一个mixin
+$baseFontSize: 16px !default; // 默认基准font-size
+@mixin px2rem($property,$px-values,$baseline-px:16px,$support-for-ie:false){
+  // Method Call:
+  // @include px2rem(width, 16px);
+
+  // Conver the baseline into rems
+  $baseline-rem: $baseline-px / 1rem * 1;
+  // Print the first line in pixel values
+  @if $support-for-ie {
+    #{$property}: $px-values;
+  }
+  // if there is only one (numeric) value, return the property/value line for it.
+  @if type-of($px-values) == "number"{
+    #{$property}: $px-values / $baseline-rem;
+  }
+  @else {
+    // Create an empty list that we can dump values into
+    $rem-values:();
+    @each $value in $px-values{
+      // If the value is zero or not a number, return it
+      @if $value == 0 or type-of($value) != "number"{
+        $rem-values: append($rem-values, $value / $baseline-rem);
+      }
+    }
+    // Return the property and its list of converted values
+    #{$property}: $rem-values;
+  }
+}
+
 // 浮动;
 @mixin fl{
   float:left;
@@ -53,7 +83,7 @@
 }
 //清除滚动条出现的闪动;
 @mixin outer{
-   // margin-left: calc(100vw - 100%)!important;
+  margin-left: calc(100vw - 100%)!important;
 }
 ///////////////////////////////////////////////
 // 循环初始字体大小:                         //
