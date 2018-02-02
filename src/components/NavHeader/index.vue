@@ -1,9 +1,11 @@
 <template>
   <el-header>
     <div class="colr-red navbar">
-      <div class="navbar-left-container">
-        <div id="navbar-logo"></div>
-      </div>
+      <router-link :to="{ path: '/' }">
+        <div class="navbar-left-container">
+          <div id="navbar-logo"></div>
+        </div>
+      </router-link>
       <!-- <div class="navbar-right-container">
         <router-link to="/login" class="navbar-link">Login</router-link>
         <a href="javascipt:;" class="navbar-link">Logout</a>
@@ -60,7 +62,7 @@ export default {
     };
   },
   updated() {
-    console.log(this.cartCount);
+    console.log('购物车数量 === ' + this.cartCount);
   },
   methods: {
     ...mapActions(['LogOut', 'CartCount', 'GetInfo']),
@@ -94,6 +96,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../styles/base.scss";
 @import '../../styles/NavHeader.scss';
 </style>

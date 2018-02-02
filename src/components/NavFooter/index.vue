@@ -15,9 +15,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../styles/base.scss";
-// @import "../../styles/GoodsList.scss";
-
 .el-footer {
   @include abs;
   width: 100%;

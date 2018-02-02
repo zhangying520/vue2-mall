@@ -6,6 +6,7 @@ import router from './router'
 import store from '@/store'
 import './permission' // 验证
 import './icons'
+
 // https://github.com/hilongjw/vue-lazyload
 import VueLazyload from 'vue-lazyload'
 Vue.use(VueLazyload, {

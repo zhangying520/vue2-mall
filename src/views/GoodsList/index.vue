@@ -26,7 +26,7 @@
       <!-- <div>
         <el-carousel trigger="click">
           <el-carousel-item v-for="item in 1" :key="item">
-            <img src="../../static/banner.png" alt="">
+            <img src="../../../static/banner.png" alt="">
           </el-carousel-item>
         </el-carousel>
       </div> -->
@@ -50,11 +50,7 @@
       </div>
     </el-main>
 
-
     <nav-footer></nav-footer>
-    <!-- <el-footer style="text-align: center;font-size: 12px;">
-      Copyright © 2017 Denton Inc. DDD 保留所有权利
-    </el-footer> -->
 
   </div>
 </template>
@@ -121,7 +117,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../styles/base.scss";
 @import "../../styles/GoodsList.scss";
 </style>
 

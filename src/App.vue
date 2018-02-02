@@ -12,7 +12,6 @@ export default {
 
 <style lang="scss">
 @charset "UTF-8";//解决中文注释问题;
-@import './styles/base.scss';
 @include label; // 清除默认样式
 
 #app {
@@ -20,6 +19,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   // text-align: center;
   // color: #2c3e50;
+}
+
+html {
+  font-size: $baseFontSize;
 }
 
 // 隐藏滚动条

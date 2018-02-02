@@ -164,8 +164,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../styles/base.scss';
-
 .cart-content {
   padding: 15px 25px;
   margin-top: 10px;

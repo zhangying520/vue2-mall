@@ -55,19 +55,23 @@ $theme: #e62878;
         width: 100%;
         height: 60px;
         border-color: #cfcfcf;
-        @include f(18,px);
+        // @include f(18,px);
+        @include px2rem(font-size, 18px);
         font-weight: 300;
         border-radius: 4px;
         transition: border-color .2s ease;
         &:hover {
-            border-color: $theme;
-            color: $theme;
-            background-color: #FFF;
+          border-color: $theme; // #999
+          color: $theme; // #999
+          background-color: #FFF;
         }
         &:focus {
-            border-color: #999;
-            color: #333;
-            background-color: #FFF;
+          border-color: #999;
+          color: #333;
+          background-color: #FFF;
+        }
+        &:active {
+          box-shadow: inset 0 0 5px rgba(0,0,0,.3);
         }
 
     }
