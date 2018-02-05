@@ -77,7 +77,7 @@ import { payMent } from '@/api/payMent'
 
 export default {
   components: { NavHeader, NavFooter, NavBread },
-  data() {
+  data () {
     return {
       radio: 0,
       addressList: [],
@@ -89,7 +89,7 @@ export default {
         provinces: '',
         city: '',
         area: '',
-        delivery: false,
+        delivery: false
       },
       formLabelWidth: '120px',
       dialogTableVisible: false,
@@ -99,11 +99,11 @@ export default {
       allArea: []
     }
   },
-  mounted() {
+  mounted () {
     this.getAddress()
   },
   methods: {
-    getAddress() { // 获取所有地址
+    getAddress () { // 获取所有地址
       address().then(response => {
         this.addressList = response.result
         this.addressList.map((item, index) => {
@@ -116,81 +116,79 @@ export default {
         console.error(error)
       })
     },
-    setDefaultAddress(addressId) { // 设置默认地址
-      let param = { address_id: addressId }
+    setDefaultAddress (addressId) { // 设置默认地址
+      const param = { 'address_id': addressId }
       setDefault(param).then(response => {
         console.log(response)
       }, error => {
-        console.error(error);
+        console.error(error)
       })
       // console.log(val);
     },
-    removeAddress(addressId, isDefault) { // 删除地址
-      const h = this.$createElement;
-        this.$msgbox({
-          title: '消息',
-          message: '你确定要删除这个地址吗？',
-          showCancelButton: true,
-          lockScroll: false,
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          beforeClose: (action, instance, done) => {
-            if (action === 'confirm') {
-              instance.confirmButtonLoading = true;
-              instance.confirmButtonText = '删除中...';
+    removeAddress (addressId, isDefault) { // 删除地址
+      // const h = this.$createElement
+      this.$msgbox({
+        title: '消息',
+        message: '你确定要删除这个地址吗？',
+        showCancelButton: true,
+        lockScroll: false,
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        beforeClose: (action, instance, done) => {
+          if (action === 'confirm') {
+            instance.confirmButtonLoading = true
+            instance.confirmButtonText = '删除中...'
 
               // 删除地址
-              let param = { addressId: addressId, is_default: isDefault }
-              deleteAddress(param).then(response => {
-                console.log(response)
-                done() // 关闭 MsgBox
-                setTimeout(() => {
-                  instance.confirmButtonLoading = false;
-                }, 300);
-                this.getAddress() // 重新获取地址
+            const param = { addressId: addressId, 'is_default': isDefault }
+            deleteAddress(param).then(response => {
+              console.log(response)
+              done() // 关闭 MsgBox
+              setTimeout(() => {
+                instance.confirmButtonLoading = false
+              }, 300)
+              this.getAddress() // 重新获取地址
                 // location.reload()
-
-              }, error => {
-                done()
-                this.$message({
-                  type: 'error',
-                  message: 'Error: ' + error.message
-                });
+            }, error => {
+              done()
+              this.$message({
+                type: 'error',
+                message: 'Error: ' + error.message
               })
-
-            } else {
-              done();
-            }
+            })
+          } else {
+            done()
           }
-        }).then(action => {
+        }
+      }).then(action => {
           // this.$message({
           //   type: 'success',
           //   message: '删除成功'
           // });
-        }).catch(error => {
+      }).catch(error => {
+        console.log(error)
           // TODO
           // 点击了cancel
-        });
+      })
     },
     // 打开新增收货地址
-    openAdd() {
+    openAdd () {
       this.dialogFormVisible = true
       this.provinces()
     },
-    selectedPro(val) {
+    selectedPro (val) {
       this.city(val)
       // console.log(val)
     },
-    selectedCity(val) {
+    selectedCity (val) {
       this.area(val)
       // console.log(val)
     },
-    selectedArea(val) {
+    selectedArea (val) {
       console.log(val)
-
     },
     // 获取所有省
-    provinces(val) {
+    provinces (val) {
       getProvinces().then(response => {
         this.allProvince = response.result
         console.log(response)
@@ -199,8 +197,8 @@ export default {
       })
     },
     // 获取所有市
-    city(provincesId) {
-      let id = { provincesId: provincesId }
+    city (provincesId) {
+      const id = { provincesId: provincesId }
       getCity(id).then(response => {
         this.allCity = response.result
         // console.log(response);
@@ -209,8 +207,8 @@ export default {
       })
     },
     // 获取所有区
-    area(cityId) {
-      let id = { cityId: cityId }
+    area (cityId) {
+      const id = { cityId: cityId }
       getArea(id).then(response => {
         this.allArea = response.result
         console.log(response)
@@ -219,8 +217,8 @@ export default {
       })
     },
     // 添加收货地址
-    commitAddress() {
-      let params = {
+    commitAddress () {
+      const params = {
         consigneeName: this.addressForm.name, // 收货人姓名
         provincesId: this.addressForm.provinces, // 省份id
         cityId: this.addressForm.city, // 城市id
@@ -243,19 +241,19 @@ export default {
       })
     },
     // 生成订单
-    commitOrder() {
+    commitOrder () {
       // this.$message({
       //   showClose: true,
       //   message: '功能尚未开放，请耐心等待!'
       // });
-      let params = {order_total: 999, address_id: 1}
+      const params = { 'order_total': 999, 'address_id': 1 }
       payMent(params).then(response => {
-        console.log(response);
+        console.log(response)
         this.$message({
           showClose: true,
           type: 'success',
           message: response.msg
-        });
+        })
       })
     }
   }
@@ -315,5 +313,4 @@ export default {
   font-size: 12px;
 }
 </style>
-
 

@@ -56,50 +56,50 @@
 </template>
 
 <script>
-import NavHeader from "@/components/NavHeader";
-import NavFooter from "@/components/NavFooter";
-import { getGoods } from "@/api/goods";
+import NavHeader from '@/components/NavHeader'
+import NavFooter from '@/components/NavFooter'
+import { getGoods } from '@/api/goods'
 export default {
-  data() {
+  data () {
     return {
       currentDate: new Date().toLocaleString(),
       goodsList: [],
-      iconHost: "",
+      iconHost: '',
       sortFlag: true, // 升序还是降序
       page: 1,
-      pageSize: "",
-      loading: ""
-    };
+      pageSize: '',
+      loading: ''
+    }
   },
-  mounted() {
-    this.iconHost = process.env.ICON_API;
-    this.getGoodsList();
+  mounted () {
+    this.iconHost = process.env.ICON_API
+    this.getGoodsList()
     // console.log(this.$loading());
   },
   methods: {
-    getGoodsList() {
+    getGoodsList () {
       this.loading = this.$loading({
         lock: true,
-        text: "Loading",
+        text: 'Loading',
         // spinner: "el-icon-loading",
-        background: "rgba(0, 0, 0, 0.7)"
-      });
+        background: 'rgba(0, 0, 0, 0.7)'
+      })
       var params = {
         page: this.page,
         pageSize: this.pageSize,
         sort: this.sortFlag ? 1 : -1
-      };
+      }
       getGoods(params).then(
         response => {
-          this.loading.close();
-          this.goodsList = response.result.list;
-          console.log(response);
+          this.loading.close()
+          this.goodsList = response.result.list
+          console.log(response)
         },
         error => {
-          console.error(error);
-          this.loading.close();
+          console.error(error)
+          this.loading.close()
         }
-      );
+      )
     }
   },
   components: {
@@ -108,12 +108,12 @@ export default {
   },
   watch: {
     sortFlag: function (val) {
-      this.getGoodsList();
-      console.log(val);
-    },
+      this.getGoodsList()
+      console.log(val)
+    }
     // deep: true
   }
-};
+}
 </script>
 
 <style lang="scss">

@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
+    <h1>这里是一级页面（未完成）</h1>
+    <h2>{{ msg }}</h2>
     <router-link to="goods">
       <el-button type="primary">商品列表</el-button>
     </router-link>
@@ -12,7 +12,7 @@
 import { mapGetters } from 'vuex'
 export default {
   name: 'HelloWorld',
-  data() {
+  data () {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
@@ -20,7 +20,7 @@ export default {
   computed: {
     ...mapGetters(['token'])
   },
-  mounted() {
+  mounted () {
     console.log(this.token)
   }
 }

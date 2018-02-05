@@ -51,22 +51,22 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters(['name', 'cartCount']),
+    ...mapGetters(['name', 'cartCount'])
     // cartCoun() {
     //   return 10
     // }
   },
-  data() {
+  data () {
     return {
-      msg: "NavHeader",
-    };
+      msg: 'NavHeader'
+    }
   },
-  updated() {
-    console.log('购物车数量 === ' + this.cartCount);
+  updated () {
+    console.log('购物车数量 === ' + this.cartCount)
   },
   methods: {
     ...mapActions(['LogOut', 'CartCount', 'GetInfo']),
-    logout() {
+    logout () {
       this.LogOut().then(response => { // 登出
         console.log(response)
         sessionStorage.removeItem('User-Name')
@@ -75,16 +75,16 @@ export default {
         console.log(error)
       })
     },
-    getCartCount() { // 获取购物车数量
+    getCartCount () { // 获取购物车数量
       this.CartCount().then(response => {
         console.log(response)
       })
     }
   },
-  mounted() {
+  mounted () {
     this.GetInfo().then(response => {
       // code == 100 == 未登录
-      if (response.code != 100) {
+      if (response.code !== 100) {
         this.getCartCount()
       }
       console.log(response)
@@ -92,7 +92,7 @@ export default {
       console.log(error)
     })
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

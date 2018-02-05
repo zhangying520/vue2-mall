@@ -6,12 +6,12 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
-      Copyright: "Copyright © 2017 Denton Inc. DDD 保留所有权利"
-    };
+      Copyright: 'Copyright © 2017 Denton Inc. DDD 保留所有权利'
+    }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

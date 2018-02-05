@@ -1,7 +1,7 @@
 import requect from '../utils/requect'
 
 // 登录
-export function login(username, password) {
+export function login (username, password) {
   return requect({
     url: '/user/login',
     method: 'post',
@@ -13,16 +13,16 @@ export function login(username, password) {
 }
 
 // 登出
-export function logout(param) {
+export function logout (param) {
   return requect({
     url: '/user/logout',
-    method: 'post',
+    method: 'post'
 
   })
 }
 
 // 查询用户信息
-export function checkLogin(param) {
+export function checkLogin (param) {
   return requect({
     url: '/user/checkLogin',
     method: 'get'

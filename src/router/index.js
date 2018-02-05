@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import HelloWorld from '@/components/HelloWorld'
 const _import = require('./_import_' + process.env.NODE_ENV)
 // example: _import('login/index')
 // in development-env not use lazy-loading, because lazy-loading too many pages will cause webpack hot update too slow. so only in production use lazy-loading;
@@ -7,7 +8,6 @@ const _import = require('./_import_' + process.env.NODE_ENV)
 // 在开发环境中，不要使用延迟加载，因为延迟加载太多页面会导致webpack热更新太慢。所以只有在生产中使用延迟加载
 // 修改组件内容后，热更新只会在打开当前组件的页面才会更新
 
-import HelloWorld from '@/components/HelloWorld'
 // import GoodsList from '@/views/GoodsList/'
 // import GoodsDetail from '@/views/GoodsDetail/'
 // import Login from '@/views/Login/index'

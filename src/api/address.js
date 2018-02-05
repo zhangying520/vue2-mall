@@ -1,7 +1,7 @@
 import requect from '../utils/requect'
 
 // 收货地址
-export function address(param) {
+export function address (param) {
   return requect({
     url: '/user/address',
     method: 'get'
@@ -9,7 +9,7 @@ export function address(param) {
 }
 
 // 设置默认地址
-export function setDefault(param) {
+export function setDefault (param) {
   return requect({
     url: '/user/setDefault',
     method: 'post',
@@ -18,7 +18,7 @@ export function setDefault(param) {
 }
 
 // 删除地址
-export function deleteAddress(param) {
+export function deleteAddress (param) {
   return requect({
     url: '/user/removeAddress',
     method: 'post',
@@ -27,7 +27,7 @@ export function deleteAddress(param) {
 }
 
 // 添加新收货地址
-export function addAddress(params) {
+export function addAddress (params) {
   return requect({
     url: '/user/addAddress',
     method: 'post',
@@ -36,15 +36,15 @@ export function addAddress(params) {
 }
 
 // 获取省份信息
-export function getProvinces(params) {
+export function getProvinces (params) {
   return requect({
     url: '/district/list',
-    method: 'get',
+    method: 'get'
   })
 }
 
 // 获取城市
-export function getCity(params) {
+export function getCity (params) {
   return requect({
     url: '/district/city',
     method: 'get',
@@ -53,7 +53,7 @@ export function getCity(params) {
 }
 
 // 获取区域
-export function getArea(params) {
+export function getArea (params) {
   return requect({
     url: '/district/area',
     method: 'get',

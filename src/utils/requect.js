@@ -30,7 +30,7 @@ service.interceptors.response.use(
     * code为400登录账号密码错误
     */
     const res = response.data
-    if (res.code == 100) return response.data
+    if (res.code === 100) return response.data
     // console.log(res);
     if (res.code !== 200) {
       Message({
@@ -53,7 +53,8 @@ service.interceptors.response.use(
           // TODO
         })
       }
-      return Promise.reject('error')
+      var error = 'error'
+      return Promise.reject(error)
     } else {
       return response.data
     }

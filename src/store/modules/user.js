@@ -23,12 +23,12 @@ const user = {
 
   actions: {
     // 登录
-    Login({ commit }, userInfo) {
+    Login ({ commit }, userInfo) {
       // console.log(userInfo);
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
         login(username, userInfo.password).then(response => {
-          let data = response.result
+          const data = response.result
           setToken(data.userId)
           sessionStorage.setItem('User-Name', data.userName)
           commit('SET_TOKEN', data.userId)
@@ -40,7 +40,7 @@ const user = {
       })
     },
     // 登出
-    LogOut({ commit, state }) {
+    LogOut ({ commit, state }) {
       return new Promise((resolve, reject) => {
         logout(state.token).then(() => {
           commit('SET_TOKEN', '')
@@ -53,7 +53,7 @@ const user = {
       })
     },
     // 查询用户信息
-    GetInfo({ commit, state }) {
+    GetInfo ({ commit, state }) {
       return new Promise((resolve, reject) => {
         checkLogin().then(response => {
           resolve(response)
@@ -63,7 +63,7 @@ const user = {
       })
     },
     // 获取购物车数量
-    CartCount({ commit, state }) {
+    CartCount ({ commit, state }) {
       return new Promise((resolve, reject) => {
         getCartCount().then(response => {
           if (response.result) {
@@ -76,4 +76,4 @@ const user = {
   }
 }
 
-export default user;
+export default user

@@ -56,12 +56,11 @@ import NavHeader from '@/components/NavHeader'
 import NavFooter from '@/components/NavFooter'
 import NavBread from '@/components/Breadcrumb'
 import { mapActions } from 'vuex'
-import { getToken } from '@/utils/auth'
 import { getCartList, deleteCart, editCart } from '@/api/cart'
 
 export default {
   components: { NavHeader, NavFooter, NavBread },
-  data() {
+  data () {
     return {
       iconHost: '',
       maxQuantity: '',
@@ -71,24 +70,23 @@ export default {
   },
   methods: {
     ...mapActions(['CartCount']),
-    edit(val, itemId) { // 增加 or 减少
-      let params = {
-        product_number: val,
-        product_id: itemId
+    edit (val, itemId) { // 增加 or 减少
+      const params = {
+        'product_number': val,
+        'product_id': itemId
       }
       editCart(params).then(response => {
         console.log(response)
         this.CartCount()
       }, error => {
-        console.log(error);
+        console.log(error)
         this.$message({
           type: 'error',
           message: 'Error: 操作失败!'
-        });
-      });
+        })
+      })
     },
-    init() { // 购物车商品列表
-      let params = { user_id: getToken() }
+    init () { // 购物车商品列表
       getCartList().then(response => {
         this.cartList = response.result
         console.log(response)
@@ -96,70 +94,69 @@ export default {
         console.log(error)
       })
     },
-    deletes(productId) { // 删除商品
-      const h = this.$createElement;
-        this.$msgbox({
-          title: '消息',
-          message: '你确定要删除此件商品吗？',
-          showCancelButton: true,
-          lockScroll: false,
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          beforeClose: (action, instance, done) => {
-            if (action === 'confirm') {
-              instance.confirmButtonLoading = true;
-              instance.confirmButtonText = '执行中...';
+    deletes (productId) { // 删除商品
+      // const h = this.$createElement
+      this.$msgbox({
+        title: '消息',
+        message: '你确定要删除此件商品吗？',
+        showCancelButton: true,
+        lockScroll: false,
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        beforeClose: (action, instance, done) => {
+          if (action === 'confirm') {
+            instance.confirmButtonLoading = true
+            instance.confirmButtonText = '执行中...'
 
               // 删除商品
-              let param = { product_id: productId }
-              deleteCart(param).then(response => {
-                console.log(response)
-                this.CartCount()
-                done() // 关闭 MsgBox
-                setTimeout(() => {
-                  instance.confirmButtonLoading = false;
-                }, 300);
-                this.init()
-
-              }, error => {
-                console.error(error)
-                done()
-                this.$message({
-                  type: 'error',
-                  message: 'Error: ' + error.message
-                });
+            const param = { 'product_id': productId }
+            deleteCart(param).then(response => {
+              console.log(response)
+              this.CartCount()
+              done() // 关闭 MsgBox
+              setTimeout(() => {
+                instance.confirmButtonLoading = false
+              }, 300)
+              this.init()
+            }, error => {
+              console.error(error)
+              done()
+              this.$message({
+                type: 'error',
+                message: 'Error: ' + error.message
               })
-
-            } else {
-              done();
-            }
+            })
+          } else {
+            done()
           }
-        }).then(action => {
+        }
+      }).then(action => {
           // this.$message({
           //   type: 'success',
           //   message: '删除成功'
           // });
-        }).catch(error => {
+      }).catch(error => {
+        console.log(error)
           // TODO
           // 点击了cancel
-        });
-    },
+      })
+    }
   },
-  mounted() {
-    this.iconHost = process.env.ICON_API;
+  mounted () {
+    this.iconHost = process.env.ICON_API
     this.init()
     // console.log(getToken());
   },
   computed: { // 计算属性计算总金额
     'orderAmount': function (param) {
-      var amount = 0;
+      var amount = 0
       this.cartList.map((item, index) => {
         amount = parseInt(amount) + parseInt(item.product_number) * parseInt(item.specification.price)
       })
       // console.log(amount);
       return amount
     }
-  },
+  }
 }
 </script>
 
