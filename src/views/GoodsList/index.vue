@@ -65,7 +65,7 @@ export default {
       currentDate: new Date().toLocaleString(),
       goodsList: [],
       iconHost: '',
-      sortFlag: true, // 升序还是降序
+      sortFlag: true, // true升序 false降序
       page: 1,
       pageSize: '',
       loading: ''
@@ -109,7 +109,6 @@ export default {
   watch: {
     sortFlag: function (val) {
       this.getGoodsList()
-      console.log(val)
     }
     // deep: true
   }

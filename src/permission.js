@@ -12,6 +12,10 @@ const whiteList = ['/login', '/goods'] // 不重定向白名单
 
 router.beforeEach((to, from, next) => {
   // NProgress.start()
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
+
   if (getToken()) {
     // 登录后不能跳转登录页面
     if (to.path === '/login') {

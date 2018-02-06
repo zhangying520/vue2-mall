@@ -29,27 +29,42 @@ export default new Router({
     {
       path: '/goods',
       name: 'GoodsList',
-      component: _import('GoodsList/index')
+      component: _import('GoodsList/index'),
+      meta: {
+        title: '商品列表'
+      }
     },
     {
       path: '/goods/detail/:goodsId',
       name: 'GoodsDetail',
-      component: _import('GoodsDetail/index')
+      component: _import('GoodsDetail/index'),
+      meta: {
+        title: '商品详情'
+      }
     },
     {
       path: '/login',
       name: 'Login',
-      component: _import('Login/index')
+      component: _import('Login/index'),
+      meta: {
+        title: '登录'
+      }
     },
     {
       path: '/cart',
       name: 'Cart',
-      component: _import('Cart/index')
+      component: _import('Cart/index'),
+      meta: {
+        title: '购物车'
+      }
     },
     {
       path: '/address',
       name: 'Address',
-      component: _import('Address/index')
+      component: _import('Address/index'),
+      meta: {
+        title: '地址'
+      }
     },
 
     { path: '*', redirect: '/404', hidden: true }
