@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style lang="scss">
-@charset "UTF-8";//解决中文注释问题;
+@charset "UTF-8"; // 解决中文注释问题;
 @include label; // 清除默认样式
 
 #app {

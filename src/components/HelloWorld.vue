@@ -14,7 +14,7 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Me Vue Mall App'
     }
   },
   computed: {
@@ -42,5 +42,9 @@ li {
 }
 a {
   color: #42b983;
+}
+.hello {
+  text-align: center;
+  line-height: 50px;
 }
 </style>

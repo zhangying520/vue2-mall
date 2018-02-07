@@ -81,7 +81,7 @@ $baseFontSize: 16px !default; // 默认基准font-size
     overflow: hidden;
   }
 }
-//清除滚动条出现的闪动;
+// 清除滚动条出现的闪动;
 @mixin outer{
   margin-left: calc(100vw - 100%)!important;
 }
