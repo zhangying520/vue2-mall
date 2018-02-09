@@ -13,20 +13,22 @@ import {
   Dialog, Checkbox, Notification
 } from 'element-ui'
 
-// https://github.com/hilongjw/vue-lazyload
+// fade/zoom 等
+// import 'element-ui/lib/theme-chalk/base.css'
+// collapse 展开折叠
+// import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
+
+// [图片懒加载]https://github.com/hilongjw/vue-lazyload
 import VueLazyload from 'vue-lazyload'
 Vue.use(VueLazyload, {
   error: 'static/logo.png', // 请求失败后显示的图片
   loading: 'static/loading.gif', // 加载的loading过渡效果
-  try: 6 // 加载图片数量
+  attempt: 8 // 尝试加载图片数量
 })
 
 Vue.config.productionTip = false
 
-// fade/zoom 等
-// import 'element-ui/lib/theme-chalk/base.css';
-// collapse 展开折叠
-// import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
+// El内置动画 collapse 展开折叠
 // Vue.component(CollapseTransition.name, CollapseTransition)
 
 Vue.prototype.$ELEMENT = { size: 'small' } // 用于改变组件的默认尺寸，默认small
