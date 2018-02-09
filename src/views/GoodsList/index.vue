@@ -1,9 +1,17 @@
 <template>
   <div>
-
     <nav-header></nav-header>
+    <nav-bread>商品列表</nav-bread>
 
-    <div class="nav-breadcrumb-wrap">
+    <el-main>
+      <div>
+        <el-carousel trigger="click">
+          <el-carousel-item v-for="item in 1" :key="item">
+            <img src="../../../static/banner.png" alt="">
+          </el-carousel-item>
+        </el-carousel>
+      </div>
+      <div class="nav-breadcrumb-wrap">
       <div class="container">
         <el-row>
           <el-col :span="20">
@@ -13,23 +21,14 @@
             </el-breadcrumb>
           </el-col>
           <el-col :span="4">
-            <div class="nav-breadcrumb">
-              <span @click="sortFlag = true">升序</span>
-              <span @click="sortFlag = false">降序</span>
+            <div class="nav-breadcrumb" id="sort">
+              <span @click="sortFlag = true">价格从低到高</span>
+              <span @click="sortFlag = false">价格从高到低</span>
             </div>
           </el-col>
         </el-row>
       </div>
     </div>
-
-    <el-main>
-      <!-- <div>
-        <el-carousel trigger="click">
-          <el-carousel-item v-for="item in 1" :key="item">
-            <img src="../../../static/banner.png" alt="">
-          </el-carousel-item>
-        </el-carousel>
-      </div> -->
 
       <div class="goods-list">
         <el-row>
@@ -58,7 +57,9 @@
 <script>
 import NavHeader from '@/components/NavHeader'
 import NavFooter from '@/components/NavFooter'
+import NavBread from '@/components/Breadcrumb'
 import { getGoods } from '@/api/goods'
+
 export default {
   data () {
     return {
@@ -104,7 +105,8 @@ export default {
   },
   components: {
     NavHeader,
-    NavFooter
+    NavFooter,
+    NavBread
   },
   watch: {
     sortFlag: function (val) {
