@@ -1,15 +1,28 @@
 $theme: #e62878;
 
 .nav-breadcrumb-wrap {
-  background: #f0f0f0;
+  background: #fff;
+  border-bottom: 1px solid #f1f1f1;
 }
 .container {
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 10px;
   .nav-breadcrumb {
-    padding: 10px 0;
+    padding: 13px 0;
     line-height: 25px;
+    .el-breadcrumb__item:first-child {
+      font-size: 20px;
+    }
+  }
+  #sort {
+    // @include f(14);
+    @include px2rem(font-size, 14px);
+    span:hover {
+      text-decoration: underline;
+      color: $theme;
+      @include cur;
+    }
   }
 }
 
@@ -46,7 +59,7 @@ $theme: #e62878;
     transition: all .2s linear;
     padding: 40px 20px;
     height: 420px;
-    
+
     &:hover {
       @include css3(transform, translate3d(0,-2px,0));
       // -webkit-transform: translate3d(0,-2px,0);

@@ -155,6 +155,9 @@ $theme: #e62878;
     .product-button-line {
         margin-top: 32px;
         @include tar;
+        a:hover {
+            text-decoration: underline;
+        }
     }
     .buy-now {
         height: 48px;
