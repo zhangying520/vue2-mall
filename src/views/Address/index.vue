@@ -303,8 +303,8 @@ export default {
     line-height: 48px;
     padding: 0 80px;
     color: #fff;
-    background-color: #e62878;
-    border-color: #e62878;
+    background-color: $checkedColor;
+    border-color: $checkedColor;
   }
 }
 </style>

@@ -217,7 +217,7 @@ export default {
     margin-bottom: 0;
     line-height: 20px;
     &:hover {
-      color: #e62878;
+      color: $checkedColor;
     }
   }
   .order-goods-price {
@@ -278,7 +278,7 @@ export default {
       padding: 0;
       span {
         @include f(30, px);
-        color: #e62878;
+        color: $checkedColor;
       }
     }
   }
@@ -290,8 +290,8 @@ export default {
     line-height: 48px;
     padding: 0 80px;
     color: #fff;
-    background-color: #e62878;
-    border-color: #e62878;
+    background-color: $checkedColor;
+    border-color: $checkedColor;
   }
 }
 </style>

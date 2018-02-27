@@ -1,5 +1,3 @@
-$theme: #e62878;
-
 .nav-breadcrumb-wrap {
   background: #fff;
   border-bottom: 1px solid #f1f1f1;
@@ -20,7 +18,7 @@ $theme: #e62878;
     @include px2rem(font-size, 14px);
     span:hover {
       text-decoration: underline;
-      color: $theme;
+      color: $checkedColor;
       @include cur;
     }
   }
@@ -39,7 +37,7 @@ $theme: #e62878;
     @include tac;
   }
   .goods-price {
-    color: $theme;
+    color: $checkedColor;
     font-size: 16px;
     line-height: 1;
     margin-top: 15px;
@@ -75,7 +73,7 @@ $theme: #e62878;
     @include cur;
     display: block;
     &:hover {
-      color: $theme;
+      color: $checkedColor;
     }
   }
 }

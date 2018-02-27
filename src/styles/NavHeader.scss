@@ -1,5 +1,4 @@
 $red: #666;
-$theme: #e62878;
 .navbar {
   max-width: 1200px;
   margin: 0 auto;
@@ -69,7 +68,7 @@ $theme: #e62878;
       @include border-radius(10px);
       @include tac;
       @include f;
-      background-color: $theme;
+      background-color: $checkedColor;
     }
   }
 }

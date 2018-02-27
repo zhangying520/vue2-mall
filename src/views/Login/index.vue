@@ -3,12 +3,14 @@
     <el-form autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left" label-width="0px"
       class="card-box login-form">
       <h3 class="title">登录</h3>
+
       <el-form-item prop="username">
         <span class="svg-container svg-container_login">
           <svg-icon icon-class="user" />
         </span>
         <el-input name="username" type="text" v-model="loginForm.username" autoComplete="on" placeholder="username" />
       </el-form-item>
+
       <el-form-item prop="password">
         <span class="svg-container">
           <svg-icon icon-class="password"></svg-icon>
@@ -17,11 +19,13 @@
           placeholder="password"></el-input>
           <span class="show-pwd" @click="showPwd"><svg-icon icon-class="eye" /></span>
       </el-form-item>
+
       <el-form-item>
         <el-button class="btn" type="primary" style="width:100%;" :loading="loading" @click.native.prevent="handleLogin">
           登录
         </el-button>
       </el-form-item>
+
       <div class="tips">
         <span style="margin-right:20px;">username: Dwx</span>
         <span> password: 123456</span>
@@ -155,7 +159,8 @@ export default {
       position: absolute;
       left: 0;
       right: 0;
-      width: 400px;
+      @include px2rem(width, 400px);
+      // width: 400px;
       padding: 35px 35px 15px 35px;
       margin: 120px auto;
     }

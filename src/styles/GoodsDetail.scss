@@ -1,4 +1,3 @@
-$theme: #e62878;
 // .global-sub-nav-line {
 //   border-bottom: 1px solid #e1e1e1;
 //   .global-sub-nav-inner {
@@ -47,7 +46,7 @@ $theme: #e62878;
             transform: translateY(10px);
             transition: opacity .3s ease 0s,transform .3s ease 0s,-webkit-transform .3s ease 0s;
             &:hover {
-              color: $theme;
+              color: $checkedColor;
             }
         }
     }
@@ -61,8 +60,8 @@ $theme: #e62878;
         border-radius: 4px;
         transition: border-color .2s ease;
         &:hover {
-          border-color: $theme; // #999
-          color: $theme; // #999
+          border-color: $checkedColor; // #999
+          color: $checkedColor; // #999
           background-color: #FFF;
         }
         &:focus {
@@ -87,8 +86,8 @@ $theme: #e62878;
         }
     }
     .active{
-      color:$theme;
-      border-color: $theme !important;
+      color:$checkedColor;
+      border-color: $checkedColor !important;
     }
 }
 .property-option-show {
@@ -139,7 +138,7 @@ $theme: #e62878;
     }
     .product-price-value {
         @include f(20,px);
-        color: $theme;
+        color: $checkedColor;
         font-weight: 300;
         span {
             @include f(50,px);
@@ -168,14 +167,14 @@ $theme: #e62878;
     }
     .mt-button--primary {
       color: #fff;
-      background-color: $theme;
-      border-color: $theme;
+      background-color: $checkedColor;
+      border-color: $checkedColor;
     }
     .btn-addcart {
         @include f(16, px);
         color: #555;
         &:hover {
-          color: $theme;
+          color: $checkedColor;
         }
     }
 }

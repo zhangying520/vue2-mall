@@ -1,5 +1,5 @@
 @charset "utf-8";
-//清除标签默认样式;
+// 清除标签默认样式;
 @mixin label(){
   /* 清除标签默认样式  */
   body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del,
@@ -41,6 +41,10 @@
   max-width: 1200px;
   margin: 0 auto;
 }
+
+// Carry bright color[选中状态]
+$checkedColor: #e62878;
+
 // 定义一个变量和一个mixin
 $baseFontSize: 16px !default; // 默认基准font-size
 @mixin px2rem($property,$px-values,$baseline-px:16px,$support-for-ie:false){
@@ -164,9 +168,9 @@ $baseFontSize: 16px !default; // 默认基准font-size
   word-break:break-all; /*支持IE，chrome，FF不支持*/
 　word-wrap:break-word; /*支持IE，chrome，FF*/
 }
-//设置字体;
+// 设置字体;
 @mixin f($size:12,$un:px){font-size:$size+$un; }
-//设置字体;
+// 设置字体;
 @mixin fa($family:'Microsoft Yahei'){ font-family:$family,'宋体','黑体';}
 @mixin tal{ text-align: left; }
 @mixin tar{ text-align: right; }
@@ -341,7 +345,7 @@ $browser: null;
 }
 
 
-//打包默认样式;
+// 打包默认样式;
 @mixin base($content:950,$unit:px,$orange:#f60,$yellow:#fff000,$blue:#5fb3d2,$red:#ff546a,$gray:#ccc,$disabled:#ccc,$bor_color:#ccc){
   @include label();
   /* 默认浮动 */
