@@ -1,6 +1,6 @@
 import router from './router'
-// import NProgress from 'nprogress' // Progress 进度条
-// import 'nprogress/nprogress.css'// Progress 进度条样式
+import NProgress from 'nprogress' // Progress 进度条
+import 'nprogress/nprogress.css'// Progress 进度条样式
 // import store from './store'
 // import { Message } from 'element-ui'
 import { getToken } from '@/utils/auth' // 验权
@@ -11,7 +11,7 @@ import { getToken } from '@/utils/auth' // 验权
 const whiteList = ['/login', '/goods'] // 不重定向白名单
 
 router.beforeEach((to, from, next) => {
-  // NProgress.start()
+  NProgress.start()
   if (to.meta.title) {
     document.title = to.meta.title
   }
@@ -41,11 +41,11 @@ router.beforeEach((to, from, next) => {
       next()
     } else {
       next('/login')
-      // NProgress.done()
+      NProgress.done()
     }
   }
 })
 
-// router.afterEach(() => {
-  // NProgress.done() // 结束Progress
-// })
+router.afterEach(() => {
+  NProgress.done() // 结束Progress
+})
