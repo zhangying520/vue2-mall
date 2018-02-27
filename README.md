@@ -1,5 +1,5 @@
 ## 基于 vue2 + vuex 构建一个单页面的电商网站
-此项目纯属个人瞎搞以及学习。[项目在线地址](http://zhoushengdong.com/dist/index.html)
+此项目纯属个人瞎搞以及学习。[项目在线地址](http://zhoushengdong.com/index.html)
 
 ## 技术栈
 
@@ -23,7 +23,9 @@ npm run dev
 此项目有后台源码，如果想前后台同时开发，可以下载对应的后台：[后台项目传送地址](https://github.com/zhoushengdong/Vue-Express-Server)。
 
 # 部分截图
-123456789
+![print](http://zhoushengdong.com/static/list.png)
+
+![print](http://zhoushengdong.com/static/cart.png)
 
 ```
 ├── build                      // 构建相关
