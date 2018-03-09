@@ -1,0 +1,134 @@
+.cart-content {
+  padding: 15px 25px;
+  margin-top: 10px;
+  box-sizing: border-box;
+  @include init();
+  .cart-list {
+    @include init();
+  }
+  .order-goods-item {
+    padding: 25px 40px 25px 160px;
+    margin: 0;
+    box-sizing: border-box;
+    height: 170px;
+    line-height: 120px;
+    @include rel;
+    border-bottom: 1px solid #eaeaea;
+  }
+  .lazy-box {
+    @include db;
+  }
+  .order-goods-image {
+    @include abs;
+    width: 120px;
+    height: auto;
+    line-height: 1;
+    top: 30px;
+    left: 0;
+    img {
+      width: 100%;
+    }
+  }
+  .order-goods-info {
+    float: left;
+    padding-bottom: 0;
+    padding-right: 0;
+    width: 60%;
+    position: relative;
+    height: 120px;
+    @include clear;
+    // @include cur;
+  }
+  .order-goods-name {
+    @include fl;
+    @include f(18, px);
+    vertical-align: middle;
+    width: 68%;
+    box-sizing: border-box;
+    padding-right: 10px;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    margin-bottom: 0;
+    line-height: 20px;
+    &:hover {
+      color: $checkedColor;
+    }
+  }
+  .order-goods-price {
+    @include fr;
+    width: 20%;
+    box-sizing: border-box;
+    @include tar;
+    padding-right: 0;
+    font-size: 16px;
+    margin-top: 0;
+    color: #999;
+  }
+  .order-goods-count {
+    @include fl;
+    @include f(16,px);
+    @include clear;
+    padding-top: 0;
+    width: 40%;
+  }
+  .order-goods-number {
+    width: 50%;
+    box-sizing: border-box;
+    height: 120px;
+    @include tar;
+    @include rel;
+    @include fl;
+  }
+  .order-goods-total {
+    @include fr;
+    @include tar;
+    color: #333;
+    white-space: nowrap;
+    width: 50%;
+    box-sizing: border-box;
+  }
+  .order-goods-btn-delete {
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    right: 0;
+    // top: 30px;
+    @include abs;
+    @include f(20, px);
+  }
+
+  .cart-footer {
+    @include rel;
+    @include tar;
+    @include clear;
+    margin: 45px auto 35px;
+    padding-right: 0;
+    .cart-footer-total {
+      @include f(20,px);
+      @include tar;
+      font-weight: 300;
+      box-sizing: border-box;
+      padding: 0;
+      span {
+        @include f(30, px);
+        color: $checkedColor;
+      }
+    }
+  }
+  .mt-button--large {
+    margin-top: 25px;
+    width: 250px;
+    @include f(20,px);
+    height: 48px;
+    line-height: 48px;
+    padding: 0;
+    color: #fff;
+    background-color: $checkedColor;
+    // border-color: $checkedColor;
+    border: none;
+  }
+}
