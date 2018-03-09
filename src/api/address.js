@@ -4,7 +4,8 @@ import requect from '../utils/requect'
 export function address (param) {
   return requect({
     url: '/user/address',
-    method: 'get'
+    method: 'get',
+    params: param
   })
 }
 

@@ -44,7 +44,7 @@ module.exports = {
   },
   module: {
     rules: [
-    ...(config.dev.useEslint ? [createLintingRule()] : []),
+      ...(config.dev.useEslint ? [createLintingRule()] : []),
       {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -100,6 +100,6 @@ module.exports = {
     fs: 'empty',
     net: 'empty',
     tls: 'empty',
-    child_process: 'empty'
+    'child_process': 'empty'
   }
 }

@@ -52,9 +52,6 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   computed: {
     ...mapGetters(['name', 'cartCount'])
-    // cartCoun() {
-    //   return 10
-    // }
   },
   data () {
     return {
@@ -63,6 +60,17 @@ export default {
   },
   updated () {
     console.log('购物车数量 === ' + this.cartCount)
+  },
+  created () {
+    this.GetInfo().then(response => {
+      // code == 100 == 未登录
+      if (response.code !== 100) {
+        this.getCartCount()
+      }
+      console.log(response)
+    }, error => {
+      console.log(error)
+    })
   },
   methods: {
     ...mapActions(['LogOut', 'CartCount', 'GetInfo']),
@@ -80,17 +88,6 @@ export default {
         console.log(response)
       })
     }
-  },
-  mounted () {
-    this.GetInfo().then(response => {
-      // code == 100 == 未登录
-      if (response.code !== 100) {
-        this.getCartCount()
-      }
-      console.log(response)
-    }, error => {
-      console.log(error)
-    })
   }
 }
 </script>

@@ -4,7 +4,7 @@
     <nav-bread>收货地址</nav-bread>
 
     <div class="address">
-      <h3 class="address-title" @click="openAdd">送货地址</h3>
+      <h3 class="address-title" @click="openAdd">{{$t('default.el.global.deliveryAddress')}}</h3>
       <el-row :gutter="20">
         <el-col :span="6" v-for="(item, index) in addressList" :key="index" class="address-item">
           <el-card class="box-card">
@@ -26,7 +26,9 @@
       </el-row>
       <el-row :gutter="20">
         <el-col :span="6" :offset="18">
-          <el-button plain class="commitOrder" @click="commitOrder">提交订单</el-button>
+          <el-button plain class="commitOrder" @click="commitOrder">
+            {{$t('default.el.global.submitOrder')}}
+          </el-button>
         </el-col>
       </el-row>
 
@@ -99,12 +101,13 @@ export default {
       allArea: []
     }
   },
-  mounted () {
+  created () {
     this.getAddress()
   },
   methods: {
     getAddress () { // 获取所有地址
-      address().then(response => {
+      const userId = sessionStorage.getItem('User-Id')
+      address({ userId }).then(response => {
         this.addressList = response.result
         this.addressList.map((item, index) => {
           if (item.is_default) {
@@ -117,7 +120,8 @@ export default {
       })
     },
     setDefaultAddress (addressId) { // 设置默认地址
-      const param = { 'address_id': addressId }
+      const userId = sessionStorage.getItem('User-Id')
+      const param = { 'address_id': addressId, 'userId': userId }
       setDefault(param).then(response => {
         console.log(response)
       }, error => {
@@ -140,7 +144,8 @@ export default {
             instance.confirmButtonText = '删除中...'
 
               // 删除地址
-            const param = { addressId: addressId, 'is_default': isDefault }
+            const userId = sessionStorage.getItem('User-Id')
+            const param = { 'addressId': addressId, 'is_default': isDefault, 'userId': userId }
             deleteAddress(param).then(response => {
               console.log(response)
               done() // 关闭 MsgBox
@@ -218,14 +223,16 @@ export default {
     },
     // 添加收货地址
     commitAddress () {
+      const userId = sessionStorage.getItem('User-Id')
       const params = {
-        consigneeName: this.addressForm.name, // 收货人姓名
-        provincesId: this.addressForm.provinces, // 省份id
-        cityId: this.addressForm.city, // 城市id
-        areaId: this.addressForm.area, // 区域id
-        streetAddress: '暂时不填', // 地址详细信息
-        phone: this.addressForm.phone, // 手机
-        isDefault: this.addressForm.isDefault // 是否默认
+        'consigneeName': this.addressForm.name, // 收货人姓名
+        'provincesId': this.addressForm.provinces, // 省份id
+        'cityId': this.addressForm.city, // 城市id
+        'areaId': this.addressForm.area, // 区域id
+        'streetAddress': '暂时不填', // 地址详细信息
+        'phone': this.addressForm.phone, // 手机
+        'isDefault': this.addressForm.isDefault, // 是否默认
+        'userId': userId
       }
 
       addAddress(params).then(response => {
@@ -246,7 +253,8 @@ export default {
       //   showClose: true,
       //   message: '功能尚未开放，请耐心等待!'
       // });
-      const params = { 'order_total': 999, 'address_id': 1 }
+      const userId = sessionStorage.getItem('User-Id')
+      const params = { 'order_total': 999, 'address_id': 1, 'userId': userId }
       payMent(params).then(response => {
         console.log(response)
         this.$message({

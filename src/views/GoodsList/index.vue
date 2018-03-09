@@ -72,10 +72,14 @@ export default {
       loading: ''
     }
   },
-  mounted () {
+  created () {
     this.iconHost = process.env.ICON_API
     this.getGoodsList()
-    // console.log(this.$loading());
+  },
+  mounted () {
+    this.$nextTick(() => {
+      // console.log(process.env.ICON_API)
+    })
   },
   methods: {
     getGoodsList () {

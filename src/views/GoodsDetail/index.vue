@@ -28,7 +28,7 @@
             </div>
 
             <div class="product-number">
-              <div class="product-number-label">购买数量</div>
+              <div class="product-number-label">{{$t('default.el.global.purchaseQuantity')}}</div>
               <div class="product-number-value">
                 <el-input-number size="small" :min="1" :max="checkedGoods.stock" v-model="purQuantity"></el-input-number>
               </div>
@@ -45,10 +45,12 @@
 
               <div class="product-buttons">
                 <div class="product-button-line">
-                  <el-button plain :disabled="checkedGoods.name ? false : true" :class="checkedGoods.name ? 'mt-button--primary' : ''" class="buy-now" @click="buyNow">立即购买</el-button>
+                  <el-button plain :disabled="checkedGoods.name ? false : true" :class="checkedGoods.name ? 'mt-button--primary' : ''" class="buy-now" @click="buyNow">
+                    {{$t('default.el.global.purchaseNow')}}
+                  </el-button>
                 </div>
                 <div class="product-button-line">
-                  <a href="javascript:;" class="btn-addcart" @click="addToCart">添加到购物袋</a>
+                  <a href="javascript:;" class="btn-addcart" @click="addToCart">{{$t('default.el.global.add')}}</a>
                 </div>
               </div>
             </div>
@@ -88,7 +90,7 @@ export default {
     }
   },
   components: { NavHeader, NavFooter, NavBread },
-  mounted () {
+  created () {
     console.log(this.$route.params)
     this.getGoodsDetail()
   },
@@ -117,7 +119,7 @@ export default {
       if (this.detailData.specification.length > 1) {
         if (!this.checkedGoods.id) {
           this.$message({
-            message: '请先选择规格',
+            message: this.$t('default.el.message.tips'),
             type: 'warning'
           })
           return
@@ -132,10 +134,12 @@ export default {
       const goodsNum = this.purQuantity
       const specification = this.checkedGoods.id
       // 只有一个选择时不用提交商品类型id
+      const userId = sessionStorage.getItem('User-Id')
       const params = {
         'product_id': this.$route.params.goodsId,
         'specification_id': specification,
-        'pur_quantity': goodsNum
+        'pur_quantity': goodsNum,
+        'userId': userId
       }
       addCart(params).then(
         response => {

@@ -8,7 +8,7 @@
 export default {
   data () {
     return {
-      Copyright: 'Copyright © 2017 Denton Inc. DDD 保留所有权利'
+      Copyright: 'Copyright © 2017 - 2018. DDD 保留所有权利 粤ICP备17158394号-1'
     }
   }
 }

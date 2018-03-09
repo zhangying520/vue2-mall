@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav-header></nav-header>
-    <nav-bread>购物袋内的商品</nav-bread>
+    <nav-bread>{{$t('default.el.global.cartBread')}}</nav-bread>
     <div class="cart-content">
       <div class="cart-list">
         <div class="order-list-item">
@@ -38,11 +38,11 @@
       </div>
       <div class="cart-footer">
         <p class="cart-footer-total">
-          总计：<span>RMB {{ orderAmount }}</span>
+          {{$t('default.el.global.totla')}}：<span>RMB {{ orderAmount }}</span>
         </p>
         <div class="cart-footer-handler">
           <router-link to="/address">
-            <el-button plain class="mt-button--large">结账</el-button>
+            <el-button plain class="mt-button--large">{{$t('default.el.global.settleAccounts')}}</el-button>
           </router-link>
         </div>
       </div>
@@ -68,12 +68,18 @@ export default {
       cartList: []
     }
   },
+  created () {
+    this.iconHost = process.env.ICON_API
+    this.init()
+  },
   methods: {
     ...mapActions(['CartCount']),
     edit (val, itemId) { // 增加 or 减少
+      const userId = sessionStorage.getItem('User-Id')
       const params = {
         'product_number': val,
-        'product_id': itemId
+        'product_id': itemId,
+        'userId': userId
       }
       editCart(params).then(response => {
         console.log(response)
@@ -87,7 +93,8 @@ export default {
       })
     },
     init () { // 购物车商品列表
-      getCartList().then(response => {
+      const userId = sessionStorage.getItem('User-Id')
+      getCartList({ userId }).then(response => {
         this.cartList = response.result
         console.log(response)
       }, error => {
@@ -97,19 +104,20 @@ export default {
     deletes (productId) { // 删除商品
       // const h = this.$createElement
       this.$msgbox({
-        title: '消息',
-        message: '你确定要删除此件商品吗？',
+        title: this.$t('default.el.messagebox.title'),
+        message: this.$t('default.el.messagebox.message'),
         showCancelButton: true,
         lockScroll: false,
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+        confirmButtonText: this.$t('default.el.messagebox.confirm'),
+        cancelButtonText: this.$t('default.el.messagebox.cancel'),
         beforeClose: (action, instance, done) => {
           if (action === 'confirm') {
             instance.confirmButtonLoading = true
             instance.confirmButtonText = '执行中...'
 
               // 删除商品
-            const param = { 'product_id': productId }
+            const userId = sessionStorage.getItem('User-Id')
+            const param = { 'product_id': productId, 'userId': userId }
             deleteCart(param).then(response => {
               console.log(response)
               this.CartCount()
@@ -142,11 +150,6 @@ export default {
       })
     }
   },
-  mounted () {
-    this.iconHost = process.env.ICON_API
-    this.init()
-    // console.log(getToken());
-  },
   computed: { // 计算属性计算总金额
     'orderAmount': function (param) {
       var amount = 0
@@ -161,138 +164,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.cart-content {
-  padding: 15px 25px;
-  margin-top: 10px;
-  box-sizing: border-box;
-  @include init();
-  .cart-list {
-    @include init();
-  }
-  .order-goods-item {
-    padding: 25px 40px 25px 160px;
-    margin: 0;
-    box-sizing: border-box;
-    height: 170px;
-    line-height: 120px;
-    @include rel;
-    border-bottom: 1px solid #eaeaea;
-  }
-  .lazy-box {
-    @include db;
-  }
-  .order-goods-image {
-    @include abs;
-    width: 120px;
-    height: auto;
-    line-height: 1;
-    top: 30px;
-    left: 0;
-    img {
-      width: 100%;
-    }
-  }
-  .order-goods-info {
-    float: left;
-    padding-bottom: 0;
-    padding-right: 0;
-    width: 60%;
-    position: relative;
-    height: 120px;
-    @include clear;
-    // @include cur;
-  }
-  .order-goods-name {
-    @include fl;
-    @include f(18, px);
-    vertical-align: middle;
-    width: 68%;
-    box-sizing: border-box;
-    padding-right: 10px;
-    position: absolute;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    margin-bottom: 0;
-    line-height: 20px;
-    &:hover {
-      color: $checkedColor;
-    }
-  }
-  .order-goods-price {
-    @include fr;
-    width: 20%;
-    box-sizing: border-box;
-    @include tar;
-    padding-right: 0;
-    font-size: 16px;
-    margin-top: 0;
-    color: #999;
-  }
-  .order-goods-count {
-    @include fl;
-    @include f(16,px);
-    @include clear;
-    padding-top: 0;
-    width: 40%;
-  }
-  .order-goods-number {
-    width: 50%;
-    box-sizing: border-box;
-    height: 120px;
-    @include tar;
-    @include rel;
-    @include fl;
-  }
-  .order-goods-total {
-    @include fr;
-    @include tar;
-    color: #333;
-    white-space: nowrap;
-    width: 50%;
-    box-sizing: border-box;
-  }
-  .order-goods-btn-delete {
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    right: 0;
-    // top: 30px;
-    @include abs;
-    @include f(20, px);
-  }
-
-  .cart-footer {
-    @include rel;
-    @include tar;
-    @include clear;
-    margin: 45px auto 35px;
-    padding-right: 0;
-    .cart-footer-total {
-      @include f(20,px);
-      @include tar;
-      font-weight: 300;
-      box-sizing: border-box;
-      padding: 0;
-      span {
-        @include f(30, px);
-        color: $checkedColor;
-      }
-    }
-  }
-  .mt-button--large {
-    margin-top: 25px;
-    width: 250px;
-    @include f(20,px);
-    height: 48px;
-    line-height: 48px;
-    padding: 0 80px;
-    color: #fff;
-    background-color: $checkedColor;
-    border-color: $checkedColor;
-  }
-}
+@import '../../styles/Cart.scss';
 </style>
 

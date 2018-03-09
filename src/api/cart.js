@@ -38,9 +38,10 @@ export function deleteCart (productId) {
 
 // 获取购物车数量
 export function getCartCount (param) {
+  console.log(param)
   return requect({
     url: '/user/getCartCount',
     method: 'get',
-    param
+    params: param
   })
 }

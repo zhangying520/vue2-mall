@@ -30,8 +30,8 @@ service.interceptors.response.use(
     * code为400登录账号密码错误
     */
     const res = response.data
-    if (res.code === 100) return response.data
-    // console.log(res);
+    // if (res.code === 100) return response.data
+    // console.log(res)
     if (res.code !== 200) {
       Message({
         message: res.msg,
@@ -46,7 +46,9 @@ service.interceptors.response.use(
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          store.dispatch('FedLogOut').then(() => {
+          console.log(this.$router)
+          store.dispatch('LogOut').then((response) => {
+            console.log(response)
             location.reload() // 为了重新实例化vue-router对象 避免bug => 刷新
           })
         }).catch(() => {

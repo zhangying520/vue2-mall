@@ -29,8 +29,10 @@ const user = {
       return new Promise((resolve, reject) => {
         login(username, userInfo.password).then(response => {
           const data = response.result
-          setToken(data.userId)
+          const time = 1 / 48 // token过期时间
+          setToken(data.token, time)
           sessionStorage.setItem('User-Name', data.userName)
+          sessionStorage.setItem('User-Id', data.userId)
           commit('SET_TOKEN', data.userId)
           commit('SET_NAME', data.userName)
           resolve()
@@ -65,7 +67,8 @@ const user = {
     // 获取购物车数量
     CartCount ({ commit, state }) {
       return new Promise((resolve, reject) => {
-        getCartCount().then(response => {
+        const userId = sessionStorage.getItem('User-Id')
+        getCartCount({ userId }).then(response => {
           if (response.result) {
             commit('SET_CART_COUNT', response.result.cartCount)
           }

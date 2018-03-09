@@ -1,8 +1,8 @@
 import router from './router'
 import NProgress from 'nprogress' // Progress 进度条
 import 'nprogress/nprogress.css'// Progress 进度条样式
-// import store from './store'
-// import { Message } from 'element-ui'
+import store from './store'
+import { Message } from 'element-ui'
 import { getToken } from '@/utils/auth' // 验权
 
 // console.log(loading);
@@ -21,19 +21,20 @@ router.beforeEach((to, from, next) => {
     if (to.path === '/login') {
       next({ path: '/' })
     } else {
-      // if (store.getters.roles.length === 0) {
-      //   // console.log('没有token');
-      //   store.dispatch('GetInfo').then(res => { // 拉取用户信息
-      //     next()
-      //   }).catch(() => {
-      //     store.dispatch('FedLogOut').then(() => {
-      //       Message.error('验证失败,请重新登录')
-      //       next({ path: '/login' })
-      //     })
-      //   })
-      // } else {
-      next()
-      // }
+      if (store.getters.token.length === 0) {
+        // console.log('没有token');
+        store.dispatch('GetInfo').then(res => { // 拉取用户信息
+          console.log(res)
+          next()
+        }).catch(() => {
+          store.dispatch('FedLogOut').then(() => {
+            Message.error('验证失败,请重新登录')
+            next({ path: '/login' })
+          })
+        })
+      } else {
+        next()
+      }
     }
   } else {
     // 判断是否跳转不需要token的白名单组件
