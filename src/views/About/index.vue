@@ -1,6 +1,7 @@
 <template>
   <div>
     <nav-header :backColor="'#000'" :textColor="'#fff'"></nav-header>
+    <nav-bread>ABOUT US</nav-bread>
     <h1>About</h1>
     <nav-footer></nav-footer>
   </div>
@@ -9,9 +10,10 @@
 <script>
   import NavHeader from '@/components/NavHeader'
   import NavFooter from '@/components/NavFooter'
+  import NavBread from '@/components/Breadcrumb'
   export default {
     components: {
-      NavHeader, NavFooter
+      NavHeader, NavFooter, NavBread
     }
   }
 </script>

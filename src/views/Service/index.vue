@@ -1,7 +1,9 @@
 <template>
   <div>
     <nav-header :backColor="'#000'" :textColor="'#fff'"></nav-header>
-    <h1>Service</h1>
+    <nav-bread>SERVICE</nav-bread>
+    <img src="../../../static/service_one.png"/>
+    <img src="../../../static/service_two.png"/>
     <nav-footer></nav-footer>
   </div>
 </template>
@@ -9,9 +11,10 @@
 <script>
   import NavHeader from '@/components/NavHeader'
   import NavFooter from '@/components/NavFooter'
+  import NavBread from '@/components/Breadcrumb'
   export default {
     components: {
-      NavHeader, NavFooter
+      NavHeader, NavFooter, NavBread
     }
   }
 </script>
