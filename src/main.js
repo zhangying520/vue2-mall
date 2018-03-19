@@ -11,7 +11,7 @@ import {
   Button, Select, Option, Header, Main, Footer, Row,
   Col, Card, Breadcrumb, BreadcrumbItem, Carousel, CarouselItem, Loading, InputNumber,
   Message, Form, FormItem, Input, Dropdown, DropdownMenu, DropdownItem, MessageBox, Radio,
-  Dialog, Checkbox, Notification
+  Dialog, Checkbox, Notification, Menu, MenuItem
 } from 'element-ui'
 
 // fade/zoom 等
@@ -73,6 +73,8 @@ Vue.use(Radio)
 Vue.use(Dialog)
 Vue.use(Checkbox)
 Vue.prototype.$notify = Notification
+Vue.use(Menu)
+Vue.use(MenuItem)
 
 /* eslint-disable no-new */
 new Vue({

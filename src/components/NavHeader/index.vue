@@ -1,22 +1,16 @@
 <template>
-  <el-header>
+  <el-header :style="{background: backColor}">
     <div class="colr-red navbar">
       <router-link :to="{ path: '/' }">
-        <div class="navbar-left-container">
-          <div id="navbar-logo"></div>
-        </div>
+        <h1 class="navbar-left-container">
+          <a id="navbar-logo">KITTY网</a>
+        </h1>
       </router-link>
-      <!-- <div class="navbar-right-container">
-        <router-link to="/login" class="navbar-link">Login</router-link>
-        <a href="javascipt:;" class="navbar-link">Logout</a>
-        <div class="navbar-cart-container">
-          <svg-icon icon-class="cart" class="cart"></svg-icon>
-          <span class="cart-number">1</span>
-        </div>
-      </div> -->
-      <el-dropdown class="avatar-container navbar-right-container" trigger="click" :show-timeout="10">
+
+      <el-dropdown v-if="this.$router.currentRoute.path == '/goods'" class="avatar-container navbar-right-container" trigger="click" :show-timeout="10">
         <div class="avatar-wrapper">
           <!-- <img class="user-avatar" :src="iconUrl + avatar"> -->
+          <img class="user-avatar" src="../../assets/head_portrait.jpg">
           <span style="cursor: pointer;">{{ name }}</span>
           <router-link to="/login">
             <div style="cursor: pointer; padding: 0 10px;" v-if="!name">登录</div>
@@ -42,6 +36,19 @@
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
+
+      <el-menu :router="true" v-else :active-text-color="activeColor" :text-color="textColor"
+       :background-color="backColor" :default-active="this.$router.currentRoute.path"
+        class="el-menu-demo" mode="horizontal" @select="handleSelect">
+        <el-menu-item index="/">HOME</el-menu-item>
+        <el-menu-item index="/about" disabled>ABOUT</el-menu-item>
+        <el-menu-item index="/goods" disabled>SHOP</el-menu-item>
+        <el-menu-item index="/service" disabled>SERVICE</el-menu-item>
+        <el-menu-item index="/contact" disabled>CONTACT</el-menu-item>
+        <el-menu-item index="6" disabled>
+          <svg-icon icon-class="search" class="search"></svg-icon>
+        </el-menu-item>
+      </el-menu>
     </div>
   </el-header>
 </template>
@@ -50,18 +57,34 @@
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  props: {
+    backColor: {
+      type: String,
+      default: '#fff'
+    },
+    textColor: {
+      type: String,
+      default: '#909399'
+    },
+    activeColor: {
+      type: String,
+      default: '#e22377'
+    }
+  },
   computed: {
     ...mapGetters(['name', 'cartCount'])
   },
   data () {
     return {
-      msg: 'NavHeader'
+      msg: 'NavHeader',
+      activeIndex: '/'
     }
   },
   updated () {
     console.log('购物车数量 === ' + this.cartCount)
   },
   created () {
+    console.log(this.$router.currentRoute.path)
     this.GetInfo().then(response => {
       // code == 100 == 未登录
       if (response.code !== 100) {
@@ -87,6 +110,9 @@ export default {
       this.CartCount().then(response => {
         console.log(response)
       })
+    },
+    handleSelect (key, keyPath) {
+      console.log(key, keyPath)
     }
   }
 }

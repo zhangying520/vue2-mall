@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+// import HelloWorld from '@/components/HelloWorld'
 const _import = require('./_import_' + process.env.NODE_ENV)
 // example: _import('login/index')
 // in development-env not use lazy-loading, because lazy-loading too many pages will cause webpack hot update too slow. so only in production use lazy-loading;
@@ -14,6 +14,7 @@ const _import = require('./_import_' + process.env.NODE_ENV)
 // import ErrorHtml from '@/views/404'
 // import Cart from '@/views/Cart/'
 // import Address from '@/views/Address/'
+// import Home from '@/views/Home/'
 
 Vue.use(Router)
 
@@ -23,8 +24,35 @@ export default new Router({
     { path: '/404', component: _import('404'), hidden: true },
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'Home',
+      component: _import('Home/index'),
+      meta: {
+        title: '首页'
+      }
+    },
+    {
+      path: '/about',
+      name: 'About',
+      component: _import('About/index'),
+      meta: {
+        title: '关于'
+      }
+    },
+    {
+      path: '/service',
+      name: 'Service',
+      component: _import('Service/index'),
+      meta: {
+        title: '服务'
+      }
+    },
+    {
+      path: '/contact',
+      name: 'Contact',
+      component: _import('Contact/index'),
+      meta: {
+        title: '联系方式'
+      }
     },
     {
       path: '/goods',

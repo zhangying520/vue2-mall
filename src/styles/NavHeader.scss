@@ -23,9 +23,13 @@ $red: #666;
   #navbar-logo {
     background-image: url('../../../static/logo.png');
     background-repeat: no-repeat;
-    background-size: 150px 45px;
-    width: 150px;
-    height: 45px;
+    background-size: 100px 22px;
+    width: 100px;
+    height: 0px;
+    text-indent: -9999px;
+    @include db;
+    padding-top: 21px;
+    margin-top: 13px;
   }
 }
 .navbar-right-container {
@@ -41,6 +45,12 @@ $red: #666;
   }
   .navbar-link {
     padding-left: 15px;
+  }
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 25px;
+    vertical-align: middle;
   }
 
   .navbar-cart-container {
@@ -74,6 +84,17 @@ $red: #666;
 }
 .el-header {
   padding: 0;
-  background: white;
+  // background: white;
   @include css3(box-shadow, 0 1px 3px 0 rgba(0,34,77,.1));
+}
+
+.el-menu--horizontal {
+  border: none;
+}
+.el-menu--horizontal>.el-menu-item.is-active, .el-menu--horizontal>.el-submenu.is-active .el-submenu__title {
+  border: none;
+}
+.el-menu--horizontal .el-menu-item {
+  height: 45px;
+  line-height: 45px;
 }

@@ -8,7 +8,7 @@ import { getToken } from '@/utils/auth' // 验权
 // console.log(loading);
 
 // token 为空时，可以访问的白名单页面
-const whiteList = ['/login', '/goods'] // 不重定向白名单
+const whiteList = ['/login', '/goods', 'home'] // 不重定向白名单
 
 router.beforeEach((to, from, next) => {
   NProgress.start()
