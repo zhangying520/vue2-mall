@@ -4,7 +4,16 @@
     <nav-bread>收货地址</nav-bread>
 
     <div class="address">
-      <h3 class="address-title" @click="openAdd">{{$t('default.el.global.deliveryAddress')}}</h3>
+      <el-row class="address-top">
+        <el-col :span="12">
+          <h3 class="address-title" @click="openAdd">
+            {{$t('default.el.global.deliveryAddress')}}
+          </h3>
+        </el-col>
+        <el-col :span="12" class="mana-address-box">
+          <a class="mana-address">管理收货地址</a>
+        </el-col>
+      </el-row>
       <el-row :gutter="20">
         <el-col :span="6" v-for="(item, index) in addressList" :key="index" class="address-item">
           <el-card class="box-card">
@@ -64,6 +73,11 @@
         </div>
       </el-dialog>
 
+      <el-row>
+        <el-col :span="24">
+          <h3 class="confirm-order-info">确认订单信息</h3>
+        </el-col>
+      </el-row>
     </div>
 
     <nav-footer></nav-footer>
@@ -273,20 +287,32 @@ export default {
   @include init();
   padding: 15px 0;
 
-  .address-title {
-    @include f(24, px);
+  .address-top {
     margin: 20px 0;
+  }
+  .address-title {
+    @include px2rem(font-size, 24px);
+  }
+  .mana-address-box {
+    @include tar;
+  }
+  .mana-address {
+    @include px2rem(font-size, 20px);
+    color: $checkedColor;
+    &:hover {
+      text-decoration: underline;
+    }
   }
   .detailed-address {
     margin-top: 5px;
-    @include f(14, px);
+    @include px2rem(font-size, 14px);
   }
   .address-item {
     margin-bottom: 20px;
   }
   .phone {
     margin-top: 20px;
-    @include f(14, px);
+    @include px2rem(font-size, 14px);
   }
   .set-default {
     margin-top: 10px;
@@ -295,12 +321,12 @@ export default {
   }
   .set-btn {
     @include fl;
-    @include f(12, px);
+    @include px2rem(font-size, 12px);
     // line-height:
   }
   .remove-btn {
     @include fr;
-    @include f(20,px);
+    @include px2rem(font-size, 20px);
     @include cur;
   }
   .commitOrder {
@@ -313,6 +339,10 @@ export default {
     color: #fff;
     background-color: $checkedColor;
     border-color: $checkedColor;
+  }
+
+  .confirm-order-info {
+    @include px2rem(font-size, 24px);
   }
 }
 </style>

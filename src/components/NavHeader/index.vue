@@ -7,7 +7,7 @@
         </h1>
       </router-link>
 
-      <el-dropdown v-if="this.$router.currentRoute.path == '/goods'" class="avatar-container navbar-right-container" trigger="click" :show-timeout="10">
+      <el-dropdown v-if="tabStatus" class="avatar-container navbar-right-container" trigger="click" :show-timeout="10">
         <div class="avatar-wrapper">
           <!-- <img class="user-avatar" :src="iconUrl + avatar"> -->
           <img class="user-avatar" src="../../assets/head_portrait.jpg">
@@ -37,7 +37,7 @@
         </el-dropdown-menu>
       </el-dropdown>
 
-      <el-menu :router="true" v-else :active-text-color="activeColor" :text-color="textColor"
+      <el-menu v-else :router="true" :active-text-color="activeColor" :text-color="textColor"
        :background-color="backColor" :default-active="this.$router.currentRoute.path"
         class="el-menu-demo" mode="horizontal" @select="handleSelect">
         <el-menu-item index="/">HOME</el-menu-item>
@@ -69,6 +69,10 @@ export default {
     activeColor: {
       type: String,
       default: '#e22377'
+    },
+    tabStatus: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {
@@ -84,6 +88,7 @@ export default {
     console.log('购物车数量 === ' + this.cartCount)
   },
   created () {
+    console.log(this.routerPath)
     console.log(this.$router.currentRoute.path)
     this.GetInfo().then(response => {
       // code == 100 == 未登录

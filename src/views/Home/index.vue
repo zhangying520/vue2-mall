@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav-header :backColor="'#000'" :textColor="'#fff'"></nav-header>
+    <nav-header :backColor="'#000'" :textColor="'#fff'" :tabStatus="false"></nav-header>
 
     <div>
       <el-carousel trigger="click" height="900px">

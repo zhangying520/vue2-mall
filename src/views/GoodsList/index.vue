@@ -7,7 +7,7 @@
       <div>
         <el-carousel trigger="click">
           <el-carousel-item v-for="item in 1" :key="item">
-            <img src="../../../static/banner.png" alt="">
+            <div class="banner-img" style="background: url(../../../static/banner.png)"></div>
           </el-carousel-item>
         </el-carousel>
       </div>

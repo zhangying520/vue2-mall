@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav-header :backColor="'#000'" :textColor="'#fff'"></nav-header>
+    <nav-header :backColor="'#000'" :textColor="'#fff'" :tabStatus="false"></nav-header>
     <nav-bread>ABOUT US</nav-bread>
     <h1>About</h1>
     <nav-footer></nav-footer>

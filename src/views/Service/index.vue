@@ -1,9 +1,11 @@
 <template>
   <div>
-    <nav-header :backColor="'#000'" :textColor="'#fff'"></nav-header>
+    <nav-header :backColor="'#000'" :textColor="'#fff'" :tabStatus="false"></nav-header>
     <nav-bread>SERVICE</nav-bread>
-    <img src="../../../static/service_one.png"/>
-    <img src="../../../static/service_two.png"/>
+    <div class="service">
+      <div class="service-top"></div>
+      <div class="service-bottom"></div>
+    </div>
     <nav-footer></nav-footer>
   </div>
 </template>
@@ -19,6 +21,19 @@
   }
 </script>
 
-<style>
+<style lang="scss" scoped>
+  .service {
+    margin: 0 30px;
+    .service-top {
+      background: url(../../../static/service_one.png) no-repeat;
+      background-size: contain;
+      height: 580px;
+    }
+    .service-bottom {
+      background: url(../../../static/service_two.png) no-repeat;
+      background-size: contain;
+      height: 450px;
+    }
+  }
 
 </style>
