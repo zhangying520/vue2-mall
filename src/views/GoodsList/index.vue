@@ -122,6 +122,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../styles/GoodsList.scss";
+@import "../../styles/goodsList.scss";
 </style>
 

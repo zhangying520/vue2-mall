@@ -195,6 +195,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../styles/GoodsDetail.scss';
+@import '../../styles/goodsDetail.scss';
 </style>
 

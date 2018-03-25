@@ -125,5 +125,5 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../styles/base.scss';
-@import '../../styles/NavHeader.scss';
+@import '../../styles/navHeader.scss';
 </style>

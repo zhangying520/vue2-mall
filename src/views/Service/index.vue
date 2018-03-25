@@ -32,7 +32,7 @@
     .service-bottom {
       background: url(../../../static/service_two.png) no-repeat;
       background-size: contain;
-      height: 450px;
+      height: 400px;
     }
   }
 

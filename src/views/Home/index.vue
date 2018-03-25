@@ -13,21 +13,44 @@
       <el-row class="multiple" :gutter="10">
         <el-col :span="6" class="fixation">
           <img src="../../../static/small_banner_one.jpg" alt="">
-          <div class="masking">123</div>
+          <div class="masking">
+            <p class="masking-title">Offine Store</p>
+            <div class="masking-content">
+              Different types of offline stores can bring different experiences to the customers
+            </div>
+          </div>
         </el-col>
         <el-col :span="6" class="fixation">
           <img src="../../../static/small_banner_two.jpg" alt="">
-          <div class="masking">123</div>
+          <div class="masking">
+            <p class="masking-title">Offine Store</p>
+            <div class="masking-content">
+              Different types of offline stores can bring different experiences to the customers
+            </div>
+          </div>
         </el-col>
         <el-col :span="6" class="fixation">
           <img src="../../../static/small_banner_four.jpg" alt="">
-          <div class="masking">123</div>
+          <div class="masking">
+            <p class="masking-title">Offine Store</p>
+            <div class="masking-content">
+              Different types of offline stores can bring different experiences to the customers
+            </div>
+          </div>
         </el-col>
         <el-col :span="6" class="fixation">
-          <img src="../../../static/small_banner_four.jpg" alt="">
-          <div class="masking">123</div>
+          <img src="../../../static/small_banner_three.jpg" alt="">
+          <div class="masking">
+            <p class="masking-title">Offine Store</p>
+            <div class="masking-content">
+              Different types of offline stores can bring different experiences to the customers
+            </div>
+          </div>
         </el-col>
       </el-row>
+
+      <div class="home-img1"></div>
+      <div class="home-img2"></div>
     </div>
 
     <nav-footer></nav-footer>
@@ -52,23 +75,60 @@ export default {
   .multiple {
     overflow: hidden;
     max-height: 250px;
+    @include px2rem(margin-bottom, 10px);
+
     .fixation {
       @include rel;
+      height: 250px;
+      position: relative;
+      overflow: hidden;
+      &:hover .masking {
+        top:0px;
+        z-index: 10;
+      }
     }
 
     img {
       height: 250px;
-      &:hover + .masking {
-        @include css3(transform, translateY(-250px));
-      }
     }
     .masking {
-      background: rgba(0, 0, 0, .5);
-      transition: transform .2s ease;
-      width: 375px;
       height: 250px;
-      @include css3(transform, translateY(0px));
+      width: 98%;
+      position: absolute;
+      top: 250px;
+      transition: all 0.3s;
+      // background: linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,0.6));
+      background: rgba(0 ,0 ,0 , .5);
+
+      .masking-title {
+        @include px2rem(margin-top, 44px);
+        @include px2rem(margin-bottom, 26px);
+        @include tac;
+        color: #e22377;
+        @include px2rem(font-size, 20px);
+        font-style: italic;
+        // font-weight: 600;
+      }
+      .masking-content {
+        padding: 0 36px;
+        color: #fff;
+        @include px2rem(font-size, 14px);
+        @include px2rem(line-height, 35px);
+        // font-weight: 600;
+      }
     }
+  }
+  .home-img1 {
+    background: url(../../../static/home-one.png) no-repeat;
+    background-size: cover;
+    height: 750px;
+  }
+  .home-img2 {
+    background: url(../../../static/home-two.png) no-repeat;
+    background-size: contain;
+    @include px2rem(margin-top, 20px);
+    @include px2rem(margin-left, 53px);
+    @include px2rem(height, 750px);
   }
 
   .el-carousel {
@@ -79,7 +139,7 @@ export default {
   }
   .bg {
     background: url('../../../static/home_banner.png') no-repeat;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     height: 900px;
   }

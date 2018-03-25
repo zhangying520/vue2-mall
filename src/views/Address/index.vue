@@ -77,6 +77,7 @@
         <el-col :span="24">
           <h3 class="confirm-order-info">确认订单信息</h3>
         </el-col>
+        <el-col :span="24" style="border: 2px solid #ccc;height: 64px;"></el-col>
       </el-row>
     </div>
 
@@ -190,8 +191,7 @@ export default {
           // 点击了cancel
       })
     },
-    // 打开新增收货地址
-    openAdd () {
+    openAdd () { // 打开新增收货地址
       this.dialogFormVisible = true
       this.provinces()
     },
@@ -206,8 +206,7 @@ export default {
     selectedArea (val) {
       console.log(val)
     },
-    // 获取所有省
-    provinces (val) {
+    provinces (val) { // 获取所有省
       getProvinces().then(response => {
         this.allProvince = response.result
         console.log(response)
@@ -215,8 +214,7 @@ export default {
         console.log(error)
       })
     },
-    // 获取所有市
-    city (provincesId) {
+    city (provincesId) { // 获取所有市
       const id = { provincesId: provincesId }
       getCity(id).then(response => {
         this.allCity = response.result
@@ -225,8 +223,7 @@ export default {
         console.log(error)
       })
     },
-    // 获取所有区
-    area (cityId) {
+    area (cityId) { // 获取所有区
       const id = { cityId: cityId }
       getArea(id).then(response => {
         this.allArea = response.result
@@ -235,8 +232,7 @@ export default {
         console.log(error)
       })
     },
-    // 添加收货地址
-    commitAddress () {
+    commitAddress () { // 添加收货地址
       const userId = sessionStorage.getItem('User-Id')
       const params = {
         'consigneeName': this.addressForm.name, // 收货人姓名
@@ -261,8 +257,7 @@ export default {
         console.error(error)
       })
     },
-    // 生成订单
-    commitOrder () {
+    commitOrder () { // 生成订单
       // this.$message({
       //   showClose: true,
       //   message: '功能尚未开放，请耐心等待!'
@@ -298,6 +293,7 @@ export default {
   }
   .mana-address {
     @include px2rem(font-size, 20px);
+    @include cur;
     color: $checkedColor;
     &:hover {
       text-decoration: underline;

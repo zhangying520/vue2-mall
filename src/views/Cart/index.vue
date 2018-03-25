@@ -164,6 +164,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../styles/Cart.scss';
+@import '../../styles/cart.scss';
 </style>
 
