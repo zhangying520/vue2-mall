@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home-box">
     <nav-header :backColor="'#000'" :textColor="'#fff'" :tabStatus="false"></nav-header>
 
     <div>
@@ -63,7 +63,6 @@ import NavFooter from '@/components/NavFooter'
 
 export default {
   created () {
-    console.log(122)
   },
   components: {
     NavHeader, NavFooter
@@ -72,6 +71,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  .home-box {overflow-x: hidden;}
   .multiple {
     overflow: hidden;
     max-height: 250px;
@@ -99,6 +99,7 @@ export default {
       transition: all 0.3s;
       // background: linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,0.6));
       background: rgba(0 ,0 ,0 , .5);
+      @include cur;
 
       .masking-title {
         @include px2rem(margin-top, 44px);

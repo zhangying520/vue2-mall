@@ -68,6 +68,9 @@ export default {
       pwdType: 'password'
     }
   },
+  created () {
+    // window.location.href = /Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent) ? 'https://www.baidu.com/' : 'http://news.baidu.com/'
+  },
   methods: {
     ...mapActions(['Login']),
     showPwd () {

@@ -28,8 +28,9 @@ Vue.use(VueLazyload, {
 })
 
 Vue.use(VueI18n)
+
 const i18n = new VueI18n({
-  locale: 'zh-cn',    // 语言标识
+  locale: localStorage.getItem('language') || 'zh-cn',    // 语言标识 默认中文
   // this.$i18n.locale // 通过切换locale的值来实现语言切换
   messages: {
     'zh-cn': require('element-ui/lib/locale/lang/zh-CN'),   // 中文语言包

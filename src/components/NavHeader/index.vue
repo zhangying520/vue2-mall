@@ -45,9 +45,19 @@
         <el-menu-item index="/goods" disabled>SHOP</el-menu-item>
         <el-menu-item index="/service" disabled>SERVICE</el-menu-item>
         <el-menu-item index="/contact" disabled>CONTACT</el-menu-item>
-        <el-menu-item index="6" disabled>
+        <el-menu-item index="/search" disabled>
           <svg-icon icon-class="search" class="search"></svg-icon>
         </el-menu-item>
+        <el-dropdown trigger="click" @command="switchover">
+          <el-button type="primary">
+            切换语言
+            <i class="el-icon-arrow-down el-icon--right"></i>
+          </el-button>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item command="zh-cn">中文</el-dropdown-item>
+            <el-dropdown-item command="en-us">English</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
       </el-menu>
     </div>
   </el-header>
@@ -88,7 +98,7 @@ export default {
     console.log('购物车数量 === ' + this.cartCount)
   },
   created () {
-    console.log(this.routerPath)
+    // console.log(this.routerPath)
     console.log(this.$router.currentRoute.path)
     this.GetInfo().then(response => {
       // code == 100 == 未登录
@@ -117,7 +127,29 @@ export default {
       })
     },
     handleSelect (key, keyPath) {
-      console.log(key, keyPath)
+      // console.log(key, keyPath)
+    },
+    switchover (type) {
+      this.$msgbox({
+        title: '提示',
+        message: '确定切换语言吗?',
+        showCancelButton: true,
+        lockScroll: false,
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+      }).then(action => {
+        // console.log(this);
+        if (this.lang === 'zh-cn') {
+          this.lang = type
+          this.$i18n.locale = this.lang // 关键语句
+        } else {
+          this.lang = type
+          this.$i18n.locale = this.lang // 关键语句
+        }
+        localStorage.setItem('language', type)
+        // console.log(this.lang)
+        // console.log(type)
+      })
     }
   }
 }
@@ -126,4 +158,16 @@ export default {
 <style lang="scss" scoped>
 @import '../../styles/base.scss';
 @import '../../styles/navHeader.scss';
+.el-dropdown {
+  vertical-align: top;
+}
+.el-dropdown + .el-dropdown {
+  margin-left: 15px;
+}
+.el-icon-arrow-down {
+  font-size: 12px;
+}
+.el-dropdown-menu__item {
+  line-height: 36px;
+}
 </style>

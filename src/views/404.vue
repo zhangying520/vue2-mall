@@ -45,7 +45,7 @@ export default {
   width: 1200px;
   margin: 20px auto 0px;
   padding: 0 100px;
-  overflow: hidden;
+  // overflow-x: hidden;
   .pic-404 {
     position: relative;
     float: left;
